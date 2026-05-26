@@ -18,7 +18,10 @@ static files before publication:
 - Replace exported `noindex` robots metadata with `index, follow`.
 - Add or update canonical URLs for each HTML output page.
 - Restore public email links that may be rewritten during mirror capture.
+- Normalize JSON-LD structured data URLs so Organization, WebSite, WebPage, logo,
+  image, and search target references point at the production domain.
 - Write a clean production `robots.txt`; Cloudflare can layer its managed crawler signals at the edge.
+- Write `llms.txt` and `.well-known/llms.txt` as AI/GEO discovery summaries.
 - Create a fallback `404.html` when Simply Static 404 generation is disabled.
 
 ## GitHub repository contents

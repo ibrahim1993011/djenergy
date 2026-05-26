@@ -1,4 +1,5 @@
 User-agent: *
+# AI/GEO summary: https://djenergy.solar/llms.txt
 Disallow: /wp-content/uploads/wc-logs/
 Disallow: /wp-content/uploads/woocommerce_transient_files/
 Disallow: /wp-content/uploads/woocommerce_uploads/
