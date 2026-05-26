@@ -22,6 +22,7 @@ Manufacturing address: No.19, Tonghai Road, High-tech Industrial Park, Longkou C
 - Factory: https://djenergy.solar/factory/
 - Products: https://djenergy.solar/products/
 - BESS Systems: https://djenergy.solar/bess-system/
+- Global country markets: https://djenergy.solar/global-energy-storage-solutions/
 - Commercial and Industrial Solutions: https://djenergy.solar/solutions/
 - Home Backup Battery: https://djenergy.solar/home-backup-battery/
 - About DJENERGY: https://djenergy.solar/about-us/

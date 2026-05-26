@@ -22,6 +22,8 @@ static files before publication:
   image, and search target references point at the production domain.
 - Write a clean production `robots.txt`; Cloudflare can layer its managed crawler signals at the edge.
 - Write `llms.txt` and `.well-known/llms.txt` as AI/GEO discovery summaries.
+- Write the supplemental `/global-energy-storage-solutions/` country/GEO landing page
+  and add it to the page sitemap.
 - Create a fallback `404.html` when Simply Static 404 generation is disabled.
 
 ## GitHub repository contents
