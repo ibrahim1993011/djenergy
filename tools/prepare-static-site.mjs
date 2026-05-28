@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const outputDir = path.resolve(process.argv[2] || "public");
@@ -9,6 +9,113 @@ const sourceOrigins = [
 ];
 const globalGeoPathname = "/global-energy-storage-solutions/";
 const globalGeoLastmod = "2026-05-26T05:10:00+00:00";
+const staticAssetFiles = [
+  {
+    from: "/wp-content/uploads/2025/12/cropped-cropped-cropped-436%C3%97148-%E9%BB%91-1-1.png",
+    to: "/wp-content/uploads/2025/12/djenergy-logo-main.png",
+  },
+  {
+    from: "/wp-content/uploads/2025/12/268%C3%9786-%E9%BB%91.png",
+    to: "/wp-content/uploads/2025/12/djenergy-logo-dark.png",
+  },
+  {
+    from: "/wp-content/uploads/2026/02/372%C3%9784-%E7%99%BD.png",
+    to: "/wp-content/uploads/2026/02/djenergy-logo-light.png",
+  },
+  {
+    from: "/wp-content/uploads/2026/02/372%C3%9784-%E7%99%BD-300x68.png",
+    to: "/wp-content/uploads/2026/02/djenergy-logo-light-300x68.png",
+  },
+  {
+    from: "/wp-content/uploads/2025/12/cropped-512%C3%97512-%E9%BB%91icon-1-1-32x32.png",
+    to: "/wp-content/uploads/2025/12/djenergy-icon-32x32.png",
+  },
+  {
+    from: "/wp-content/uploads/2025/12/cropped-512%C3%97512-%E9%BB%91icon-1-1-180x180.png",
+    to: "/wp-content/uploads/2025/12/djenergy-icon-180x180.png",
+  },
+  {
+    from: "/wp-content/uploads/2025/12/cropped-512%C3%97512-%E9%BB%91icon-1-1-192x192.png",
+    to: "/wp-content/uploads/2025/12/djenergy-icon-192x192.png",
+  },
+];
+const staticAssetReferenceOnly = [
+  {
+    from: "/wp-content/uploads/2025/12/cropped-512%C3%97512-%E9%BB%91icon-1-1-270x270.png",
+    to: "/wp-content/uploads/2025/12/djenergy-icon-192x192.png",
+  },
+];
+const staticAssetReferences = [...staticAssetFiles, ...staticAssetReferenceOnly].flatMap(({ from, to }) => {
+  const references = [[from, to]];
+  const decoded = decodeURIComponent(from);
+  if (decoded !== from) {
+    references.push([decoded, to]);
+  }
+  return references;
+});
+const staticFixCssPathname = "/assets/djenergy-static-fixes.css";
+const staticFixLink = `  <link rel="stylesheet" id="djenergy-static-fixes-css" href="${staticFixCssPathname}" type="text/css" media="all">`;
+const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
+.qodef-mobile-header-logo-link .qodef-header-logo-image {
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+#qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef-header-logo-image {
+  max-height: 40px;
+}
+
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.elementor-17623 .elementor-element.elementor-element-5e69a310.elementor-posts--thumbnail-top .elementor-post__thumbnail__link,
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post__thumbnail__link {
+  display: block !important;
+  line-height: 0;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+}
+
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-posts-container .elementor-post__thumbnail,
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post__thumbnail {
+  aspect-ratio: 16 / 9;
+  background: #f3f5f8;
+  height: auto !important;
+  overflow: hidden;
+  padding-bottom: 0 !important;
+  position: relative !important;
+  width: 100%;
+}
+
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post__thumbnail img {
+  height: 100% !important;
+  inset: 0;
+  max-width: none !important;
+  object-fit: cover;
+  object-position: center;
+  position: absolute !important;
+  transform: none !important;
+  width: 100% !important;
+}
+
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post__text {
+  margin-top: 0 !important;
+  padding: 18px 18px 22px;
+}
+
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post__title {
+  margin: 0 0 8px;
+}
+
+.elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post__meta-data {
+  margin-bottom: 14px;
+}
+`;
 
 const textExtensions = new Set([
   ".css",
@@ -52,6 +159,55 @@ function replaceSourceOrigins(content) {
     result = result.replaceAll(sourceOrigin, productionOrigin);
   }
   return result;
+}
+
+function replaceStaticAssetReferences(content) {
+  let result = content;
+  for (const [from, to] of staticAssetReferences) {
+    result = result.replaceAll(from, to);
+  }
+  return result;
+}
+
+function replaceSiteReferences(content) {
+  return replaceStaticAssetReferences(replaceSourceOrigins(content));
+}
+
+function urlPathToFilePath(urlPath) {
+  return path.join(outputDir, ...urlPath.replace(/^\/+/, "").split("/"));
+}
+
+async function ensureStaticAssetCopies() {
+  for (const { from, to } of staticAssetFiles) {
+    const sourcePath = urlPathToFilePath(from);
+    const targetPath = urlPathToFilePath(to);
+    try {
+      await mkdir(path.dirname(targetPath), { recursive: true });
+      await copyFile(sourcePath, targetPath);
+    } catch (error) {
+      if (error.code !== "ENOENT") {
+        throw error;
+      }
+    }
+  }
+}
+
+async function writeStaticFixCss() {
+  const targetPath = urlPathToFilePath(staticFixCssPathname);
+  await mkdir(path.dirname(targetPath), { recursive: true });
+  await writeFile(targetPath, staticFixCss, "utf8");
+}
+
+function injectStaticFixes(content) {
+  const oldInlineStylePattern = /\s*<style id=["']djenergy-static-fixes["']>[\s\S]*?<\/style>/i;
+  let result = content.replace(oldInlineStylePattern, `\n${staticFixLink}`);
+  if (/<link\s+[^>]*id=["']djenergy-static-fixes-css["'][^>]*>/i.test(result)) {
+    return result;
+  }
+  if (!result.includes("</head>")) {
+    return content;
+  }
+  return result.replace(/<\/head>/i, `${staticFixLink}\n</head>`);
 }
 
 function restoreMirroredEmailLinks(content) {
@@ -117,7 +273,7 @@ function normalizeStructuredDataValue(value, key, pageUrl, parent) {
     return makeAbsoluteReference(value, pageUrl);
   }
 
-  return replaceSourceOrigins(value);
+  return replaceSiteReferences(value);
 }
 
 function normalizeStructuredDataUrls(data, pageUrl) {
@@ -151,7 +307,7 @@ function makeAbsoluteStructuredData(content, pageUrl) {
 }
 
 function makeIndexableHtml(content, canonicalUrl, isErrorPage = false) {
-  let result = restoreMirroredEmailLinks(replaceSourceOrigins(content));
+  let result = restoreMirroredEmailLinks(replaceSiteReferences(content));
   const robotsTag = `<meta name="robots" content="${isErrorPage ? "noindex, follow" : "index, follow"}">`;
   const canonicalTag = `<link rel="canonical" href="${canonicalUrl}">`;
   const robotsPattern = /<meta\s+[^>]*name=["']robots["'][^>]*>/i;
@@ -176,11 +332,11 @@ function makeIndexableHtml(content, canonicalUrl, isErrorPage = false) {
 
   result = makeAbsoluteStructuredData(result, canonicalUrl);
 
-  return result;
+  return injectStaticFixes(result);
 }
 
 function makeAbsoluteSitemap(content) {
-  return replaceSourceOrigins(content).replace(
+  return replaceSiteReferences(content).replace(
     /<loc>([^<]+)<\/loc>/gi,
     (_match, value) => `<loc>${makeAbsoluteReference(value.trim(), `${productionOrigin}/`)}</loc>`,
   );
@@ -593,6 +749,8 @@ async function writeFallback404() {
 }
 
 async function main() {
+  await ensureStaticAssetCopies();
+  await writeStaticFixCss();
   const allFiles = await walk(outputDir);
   let htmlCount = 0;
   let textCount = 0;
@@ -616,7 +774,7 @@ async function main() {
       ? makeIndexableHtml(original, productionUrlForHtml(filePath), relativePath === "404.html")
       : extension === ".xml" && /sitemap/i.test(relativePath)
         ? makeAbsoluteSitemap(original)
-        : replaceSourceOrigins(original);
+        : replaceSiteReferences(original);
 
     if (updated !== original) {
       await writeFile(filePath, updated, "utf8");
