@@ -1,5 +1,53 @@
 # DJENERGY Fix Log
 
+## 2026-06-01: Mobile Typography And Image Layout
+
+### Problems
+
+- The Factory hero title kept a cramped two-column layout on mobile. The text
+  column was only about 131px wide, which forced the title into many short lines.
+- Several Elementor image widgets on Factory, FAQ, and BESS pages inherited a
+  fixed mobile height, stretching wide images vertically.
+- The About and Solutions hero headings were constrained by mobile padding and
+  boxed Elementor containers, leaving the title text too narrow.
+- The Solutions mobile hero title could sit on an overly light background,
+  reducing readability.
+- Solutions model buttons could be laid out off-screen inside boxed flex
+  containers even when the page itself did not create horizontal scrolling.
+- Long page titles across products and articles used desktop-scale line height
+  on mobile, creating unnecessarily tall title blocks.
+- A few Blog article tables and headings could run wider than the readable
+  mobile content column.
+
+### Durable Fixes
+
+- `tools/prepare-static-site.mjs` now rewrites the Factory hero title to
+  `DJENERGY Factory: Cells-to-System Energy Storage Manufacturing`.
+- `/assets/djenergy-static-fixes.css` now forces the Factory hero columns to
+  stack full-width on mobile.
+- The generated mobile CSS caps H1/H2 sizes and line-height for readable mobile
+  wrapping, and restores Elementor image widgets to natural aspect ratio.
+- Boxed Elementor containers now stack their inner columns on mobile, preventing
+  hidden off-screen columns and button groups.
+- About and Solutions hero sections now have mobile-specific width and padding
+  guards so titles use the available phone width.
+- The Solutions mobile hero now uses a darker image overlay so the white title
+  remains readable.
+- Theme banner images, product zoom overlays, and WooCommerce specification
+  tables now have mobile guards so they do not distort or spill past the phone
+  viewport.
+- Blog/article tables and headings now wrap inside the phone viewport instead
+  of relying on desktop-width table cells or no-wrap heading behavior.
+- `tools/validate-static-site.mjs` now blocks deployment if the old Factory
+  title, missing Factory mobile layout guard, or missing mobile image guard
+  returns.
+
+### Verification
+
+- Mobile audit covers sitemap pages at 390px width.
+- Target checks: no horizontal scrolling, Factory title full-width, visible
+  logo, readable title wrapping, and natural image ratios.
+
 ## 2026-06-01: Mobile Layout And Tap Targets
 
 ### Problems

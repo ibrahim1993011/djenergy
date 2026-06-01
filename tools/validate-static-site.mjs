@@ -150,6 +150,7 @@ async function validateTextAssets(errors) {
 async function validateKnownPages(errors) {
   const home = await readText("index.html");
   const blog = await readText("blog/index.html");
+  const factory = await readText("factory/index.html");
   const css = await readText("assets/djenergy-static-fixes.css");
   const robots = await readText("robots.txt");
   const sitemapIndex = await readText("sitemap_index.xml");
@@ -169,6 +170,36 @@ async function validateKnownPages(errors) {
   }
   if (!css.includes("bottom: 18px !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile WhatsApp placement guard");
+  }
+  if (!css.includes("elementor-element-94fb9c1") || !css.includes("flex-direction: column !important")) {
+    addError(errors, "Static fixes CSS does not preserve the Factory mobile hero layout guard");
+  }
+  if (!css.includes("body [class*=\"elementor-\"] .elementor-widget-image img") || !css.includes("height: auto !important")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile image ratio guard");
+  }
+  if (!css.includes("body .qodef-banner .qodef-m-image img") || !css.includes("min-height: 0 !important")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile banner image ratio guard");
+  }
+  if (!css.includes(".elementor .e-con.e-flex > .e-con-inner") || !css.includes("flex-direction: column !important")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile Elementor container stacking guard");
+  }
+  if (!css.includes("elementor-element-5143ff81") || !css.includes("elementor-element-9da0e4b")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile About/Solutions hero width guards");
+  }
+  if (!css.includes("linear-gradient(rgba(15, 23, 42, .68)") || !css.includes("/wp-content/uploads/2026/01/Factory-1.jpg") || !css.includes("text-transform: none !important")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile hero readability guards");
+  }
+  if (!css.includes(".woocommerce-product-gallery .zoomImg")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile product zoom guard");
+  }
+  if (!css.includes("#qodef-page-outer table") || !css.includes("white-space: normal !important")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile article table and heading wrap guard");
+  }
+  if (factory.includes("DJENERGY FACTORY-CELLS-TO-SYSTEM ENERGY STORAGE MANUFACTURING")) {
+    addError(errors, "Factory page still contains the cramped all-caps mobile hero title");
+  }
+  if (!factory.includes("DJENERGY Factory: Cells-to-System Energy Storage Manufacturing")) {
+    addError(errors, "Factory page is missing the mobile-friendly hero title");
   }
   if (!robots.includes(`Sitemap: ${productionOrigin}/sitemap_index.xml`)) {
     addError(errors, "robots.txt does not point crawlers to the production sitemap index");

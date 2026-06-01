@@ -297,6 +297,177 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 }
 
 @media (max-width: 768px) {
+  #qodef-page-outer h1,
+  .qodef-page-title .qodef-m-title,
+  .elementor-widget-heading h1.elementor-heading-title {
+    font-size: clamp(26px, 7.2vw, 34px) !important;
+    line-height: 1.14 !important;
+    letter-spacing: -.02em;
+    max-width: 100% !important;
+    overflow-wrap: break-word;
+    text-transform: none !important;
+    white-space: normal !important;
+    word-break: normal;
+  }
+
+  #qodef-page-outer h2,
+  .elementor-widget-heading h2.elementor-heading-title {
+    font-size: clamp(23px, 6.5vw, 30px) !important;
+    line-height: 1.18 !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word;
+    white-space: normal !important;
+    word-break: normal;
+  }
+
+  .qodef-footer-top-area-title {
+    font-size: clamp(28px, 8vw, 34px) !important;
+    line-height: 1.15 !important;
+  }
+
+  .elementor-section .elementor-container {
+    flex-wrap: wrap !important;
+  }
+
+  .elementor-section .elementor-column {
+    width: 100% !important;
+  }
+
+  .elementor .e-con.e-flex {
+    align-items: stretch !important;
+    flex-wrap: wrap !important;
+    --flex-wrap: wrap;
+  }
+
+  .elementor .e-con.e-flex > .e-con,
+  .elementor .e-con.e-flex > .e-con-inner > .e-con {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    --width: 100%;
+  }
+
+  .elementor .e-con.e-flex > .e-con-inner,
+  body .elementor .elementor-widget-heading,
+  body .elementor .elementor-widget-heading .elementor-widget-container,
+  body .elementor .elementor-widget-heading .elementor-heading-title {
+    align-self: stretch !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .elementor .e-con.e-flex > .e-con-inner {
+    align-items: stretch !important;
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+  }
+
+  body .elementor .elementor-widget-wrap {
+    align-items: stretch !important;
+  }
+
+  body .elementor .elementor-widget-image .elementor-widget-container {
+    height: auto !important;
+  }
+
+  body .elementor .elementor-widget-image img,
+  body [class*="elementor-"] .elementor-widget-image img {
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+
+  body .elementor .elementor-widget-manufaktursolutions_core_banner,
+  body .elementor .elementor-widget-manufaktursolutions_core_banner .elementor-widget-container,
+  body .elementor .elementor-widget-manufaktursolutions_core_banner .qodef-banner,
+  body .qodef-banner .qodef-m-image,
+  body .qodef-banner .qodef-m-image img {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+
+  .woocommerce-product-gallery .zoomImg {
+    display: none !important;
+  }
+
+  .woocommerce table {
+    table-layout: fixed;
+    width: 100% !important;
+  }
+
+  #qodef-page-outer table {
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    width: 100% !important;
+  }
+
+  #qodef-page-outer table td,
+  #qodef-page-outer table th {
+    overflow-wrap: anywhere;
+    white-space: normal !important;
+    word-break: break-word;
+  }
+
+  .woocommerce table td,
+  .woocommerce table th {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .elementor-8235 .elementor-element.elementor-element-94fb9c1 {
+    align-items: stretch !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+    --flex-direction: column;
+  }
+
+  .elementor-8235 .elementor-element.elementor-element-1aa93ac,
+  .elementor-8235 .elementor-element.elementor-element-ffb1f0b {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    --width: 100%;
+  }
+
+  .elementor-8235 .elementor-element.elementor-element-da1225e {
+    text-align: left !important;
+  }
+
+  .elementor-11213 .elementor-element.elementor-element-5143ff81 > .elementor-element-populated {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .elementor-16923 .elementor-element.elementor-element-9da0e4b {
+    background-color: #0f172a !important;
+    background-image: linear-gradient(rgba(15, 23, 42, .68), rgba(15, 23, 42, .68)), url("/wp-content/uploads/2026/01/Factory-1.jpg") !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    min-height: 360px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+    --padding-left: 20px;
+    --padding-right: 20px;
+  }
+
+  .elementor-16923 .elementor-element.elementor-element-4becc94,
+  .elementor-16923 .elementor-element.elementor-element-4becc94 > .e-con-inner,
+  .elementor-16923 .elementor-element.model-buttons {
+    left: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+    transform: none !important;
+    width: 100% !important;
+  }
+
   .qodef-search-form-button,
   .wp-block-search__button,
   button[type="submit"],
@@ -1029,6 +1200,17 @@ function applyManufacturingProofEnhancement(content, relativePath, canonicalUrl)
   return result;
 }
 
+function applyMobileLayoutContentFixes(content, relativePath) {
+  if (relativePath !== "factory/index.html") {
+    return content;
+  }
+
+  return content.replace(
+    /DJENERGY FACTORY-CELLS-TO-SYSTEM ENERGY STORAGE MANUFACTURING/g,
+    "DJENERGY Factory: Cells-to-System Energy Storage Manufacturing",
+  );
+}
+
 function applyCommercialCategoryEnhancement(content, relativePath, canonicalUrl) {
   const config = commercialCategoryEnhancements[relativePath];
   if (!config) {
@@ -1613,10 +1795,14 @@ async function main() {
     const relativePath = path.relative(outputDir, filePath).split(path.sep).join("/");
     const canonicalUrl = extension === ".html" ? productionUrlForHtml(filePath) : "";
     const updated = extension === ".html"
-      ? applyManufacturingProofEnhancement(
-          applyBlogArticleEnhancement(
-            applyCommercialCategoryEnhancement(
-              makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
+      ? applyMobileLayoutContentFixes(
+          applyManufacturingProofEnhancement(
+            applyBlogArticleEnhancement(
+              applyCommercialCategoryEnhancement(
+                makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
+                relativePath,
+                canonicalUrl,
+              ),
               relativePath,
               canonicalUrl,
             ),
@@ -1624,7 +1810,6 @@ async function main() {
             canonicalUrl,
           ),
           relativePath,
-          canonicalUrl,
         )
       : extension === ".xml" && /sitemap/i.test(relativePath)
         ? makeAbsoluteSitemap(original)
