@@ -25,6 +25,13 @@ static files before publication:
 - Write the supplemental `/global-energy-storage-solutions/` country/GEO landing page
   and add it to the page sitemap.
 - Create a fallback `404.html` when Simply Static 404 generation is disabled.
+- Copy logo/favicon assets with stable ASCII filenames and rewrite exported references
+  to avoid Cloudflare URL-decoding misses.
+- Write `/assets/djenergy-static-fixes.css` to preserve the header logo display and
+  the Blog archive card thumbnail/text spacing after each export.
+- Run `tools/validate-static-site.mjs` before Cloudflare deployment. The validation
+  fails the release if old encoded logo references, source-origin URLs, missing
+  canonicals, missing sitemap signals, or missing static CSS guards reappear.
 
 ## GitHub repository contents
 
@@ -32,6 +39,7 @@ Commit these items to `ibrahim1993011/djenergy`:
 
 - `.github/workflows/deploy-cloudflare-pages.yml`
 - `tools/prepare-static-site.mjs`
+- `tools/validate-static-site.mjs`
 - `public/` (the prepared full-site static output)
 
 ## GitHub Actions secrets
@@ -56,3 +64,27 @@ site but intentionally skips the live Pages deployment.
 - Until full-site ZIP output is corrected, deploy the prepared `public/` mirror of
   the currently published site and run `tools/prepare-static-site.mjs` before
   each Cloudflare Pages release.
+
+## Local pre-publish checks
+
+Run these commands before every manual upload or commit:
+
+```bash
+node tools/prepare-static-site.mjs public https://djenergy.solar
+node tools/validate-static-site.mjs public https://djenergy.solar
+```
+
+The validation protects the May 2026 fixes:
+
+- Header logo must use `/wp-content/uploads/2025/12/djenergy-logo-main.png`.
+- Dark/light logo and favicon files must use stable ASCII filenames.
+- Old encoded logo paths such as `cropped-cropped-cropped-436...`, `268%C3...`,
+  `372%C3...`, and `cropped-512...` must not appear in HTML, XML, CSS, JS, JSON,
+  or text outputs.
+- Blog archive pages must include `/assets/djenergy-static-fixes.css`, which keeps
+  card images at a fixed 16:9 ratio and removes the stretched gap between image
+  and text.
+- Public pages must have `index, follow` robots metadata and production canonical
+  URLs.
+- Static feed clones and meta-refresh redirect pages must have `noindex, follow`
+  so they do not compete with real product, category, blog, and GEO pages.

@@ -8,6 +8,7 @@ on:
     paths:
       - "public/**"
       - "tools/prepare-static-site.mjs"
+      - "tools/validate-static-site.mjs"
       - ".github/workflows/deploy-cloudflare-pages.yml"
 
 permissions:
@@ -26,6 +27,9 @@ jobs:
 
       - name: Prepare production metadata
         run: node tools/prepare-static-site.mjs public https://djenergy.solar
+
+      - name: Validate static SEO and export guardrails
+        run: node tools/validate-static-site.mjs public https://djenergy.solar
 
       - name: Deploy to Cloudflare Pages
         if: env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != ''
