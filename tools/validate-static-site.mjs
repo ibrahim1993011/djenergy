@@ -30,6 +30,13 @@ const forbiddenPatterns = [
   /cropped-512%C3%97512/i,
   /cropped-512\u00d7512/i,
 ];
+const commercialSeoPages = [
+  ["product-category/battery-cells/index.html", "battery-cells"],
+  ["product-category/all-in-one-ci-ess/index.html", "all-in-one-ci-ess"],
+  ["product-category/containerized-bess/index.html", "containerized-bess"],
+  ["product-category/home-battery/index.html", "home-battery"],
+  ["product-category/bess-system/index.html", "bess-system-category"],
+];
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -143,11 +150,30 @@ async function validateKnownPages(errors) {
   }
 }
 
+async function validateCommercialSeoPages(errors) {
+  for (const [relativePath, key] of commercialSeoPages) {
+    const content = await readText(relativePath);
+    if (!content.includes(`data-dj-seo-enhancement="${key}"`)) {
+      addError(errors, `${relativePath} is missing the commercial SEO landing section`);
+    }
+    if (!content.includes(`data-dj-schema="${key}"`)) {
+      addError(errors, `${relativePath} is missing the commercial SEO structured data`);
+    }
+    if (!/<meta\s+[^>]*name=["']description["'][^>]*content=["'][^"']{80,}["'][^>]*>/i.test(content)) {
+      addError(errors, `${relativePath} is missing an optimized meta description`);
+    }
+    if (!content.includes("Inquiry checklist") || !content.includes("/contact-us/")) {
+      addError(errors, `${relativePath} is missing inquiry guidance or contact CTA`);
+    }
+  }
+}
+
 async function main() {
   const errors = [];
   await validateRequiredFiles(errors);
   await validateTextAssets(errors);
   await validateKnownPages(errors);
+  await validateCommercialSeoPages(errors);
 
   if (errors.length > 0) {
     console.error(`Static site validation failed with ${errors.length} issue(s):`);

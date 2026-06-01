@@ -115,7 +115,294 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 .elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post__meta-data {
   margin-bottom: 14px;
 }
+
+.dj-seo-category {
+  background: #f7faf8;
+  border: 1px solid #dce7e2;
+  border-radius: 24px;
+  margin: 0 0 42px;
+  padding: clamp(28px, 4vw, 46px);
+}
+
+.dj-seo-category__kicker {
+  color: #08745c;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.dj-seo-category h1 {
+  color: #062c28;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.08;
+  margin: 0 0 18px;
+  max-width: 980px;
+}
+
+.dj-seo-category__lede {
+  color: #52615f;
+  font-size: 18px;
+  line-height: 1.7;
+  margin: 0 0 26px;
+  max-width: 960px;
+}
+
+.dj-seo-category__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 28px 0;
+}
+
+.dj-seo-category__card {
+  background: #fff;
+  border: 1px solid #e2ebe6;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.dj-seo-category__card h2 {
+  color: #062c28;
+  font-size: 20px;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+.dj-seo-category__card p,
+.dj-seo-category__card li {
+  color: #52615f;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.dj-seo-category__card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.dj-seo-category__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.dj-seo-category__links a {
+  background: #08745c;
+  border-radius: 999px;
+  color: #fff !important;
+  font-weight: 800;
+  padding: 12px 18px;
+  text-decoration: none;
+}
+
+.dj-seo-category__links a.secondary {
+  background: #fff;
+  border: 1px solid #08745c;
+  color: #08745c !important;
+}
+
+@media (max-width: 900px) {
+  .dj-seo-category__grid {
+    grid-template-columns: 1fr;
+  }
+}
 `;
+
+const commercialCategoryEnhancements = {
+  "product-category/battery-cells/index.html": {
+    key: "battery-cells",
+    title: "LiFePO4 Battery Cells Manufacturer | DJENERGY",
+    description: "Source 3.2V 314Ah LiFePO4 prismatic battery cells for ESS modules and OEM pack production. Factory-direct supply, documentation, and quotation support.",
+    canonicalPath: "/product-category/battery-cells/",
+    kicker: "Battery cells and OEM supply",
+    h1: "LiFePO4 battery cells manufacturer for ESS integrators",
+    lede: "DJENERGY supplies LFP prismatic battery cells for energy storage modules, rack systems, commercial BESS, and OEM battery pack production. Buyers can start from the 3.2V 314Ah cell and connect cell sourcing with module and system-level project support.",
+    cards: [
+      {
+        title: "Best for",
+        items: ["ESS module builders", "Battery pack factories", "C&I and containerized BESS integrators"],
+      },
+      {
+        title: "Core product focus",
+        items: ["3.2V 314Ah LFP prismatic cell", "LiFePO4 chemistry for energy storage", "Stable cell supply for OEM/ODM programs"],
+      },
+      {
+        title: "Inquiry checklist",
+        items: ["Target capacity and quantity", "Module or rack design plan", "Required documents, packing, and shipment schedule"],
+      },
+    ],
+    links: [
+      { text: "View 314Ah LFP cell", href: "/product/lfp-prismatic-cell-314ah/", primary: true },
+      { text: "See factory capability", href: "/factory/" },
+      { text: "Request datasheet and quote", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "What buyers should choose LiFePO4 prismatic cells from DJENERGY?",
+        answer: "ESS integrators, pack factories, distributors, and project buyers who need factory-direct LFP cells for modules, racks, C&I cabinets, or containerized battery storage systems.",
+      },
+      {
+        question: "What details help DJENERGY quote battery cells faster?",
+        answer: "Share target cell model, quantity, application, module or pack design, required certificates, destination port, and expected delivery schedule.",
+      },
+    ],
+  },
+  "product-category/all-in-one-ci-ess/index.html": {
+    key: "all-in-one-ci-ess",
+    title: "C&I ESS Cabinets for Commercial Energy Storage | DJENERGY",
+    description: "Compare all-in-one C&I ESS cabinets such as 60kW/110kWh and 110kW/174kWh for peak shaving, backup power, EV charging, and solar storage projects.",
+    canonicalPath: "/product-category/all-in-one-ci-ess/",
+    kicker: "Commercial and industrial ESS",
+    h1: "All-in-one C&I ESS cabinets for commercial energy storage",
+    lede: "DJENERGY all-in-one C&I ESS cabinets combine LiFePO4 battery storage, PCS, BMS, thermal management, and cabinet-level protection for commercial buildings, factories, EV charging stations, solar projects, and backup power applications.",
+    cards: [
+      {
+        title: "Typical applications",
+        items: ["Peak shaving and demand charge reduction", "Solar self-consumption and backup power", "EV charging and microgrid support"],
+      },
+      {
+        title: "Available configurations",
+        items: ["60kW/110kWh C&I ESS cabinet", "110kW/174kWh C&I ESS cabinet", "Custom project sizing based on load profile"],
+      },
+      {
+        title: "Inquiry checklist",
+        items: ["Site country and grid voltage", "Power, energy, and backup time target", "Indoor/outdoor use and certification needs"],
+      },
+    ],
+    links: [
+      { text: "View 110kW/174kWh cabinet", href: "/product/110kw-174kwh-ci-energy-storage-systems/", primary: true },
+      { text: "Read C&I BESS guide", href: "/blog/how-to-choose-the-right-ci-ess-cabinet-60kw-110kwh-100kw-174kwh-or-125kw-261kwh/" },
+      { text: "Request project sizing", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "What is an all-in-one C&I ESS cabinet?",
+        answer: "It is a commercial battery energy storage cabinet that integrates LFP batteries, power conversion, BMS, thermal management, and protection into one cabinet for faster deployment.",
+      },
+      {
+        question: "How should buyers choose a C&I ESS cabinet size?",
+        answer: "Start with load profile, peak demand, required backup time, available space, grid voltage, and solar or PCS configuration. DJENERGY can recommend the cabinet size after reviewing project data.",
+      },
+    ],
+  },
+  "product-category/containerized-bess/index.html": {
+    key: "containerized-bess",
+    title: "Containerized BESS Supplier for 250kW-5MWh Projects | DJENERGY",
+    description: "Source liquid-cooled containerized BESS for 250kW/750kWh, 500kW/1MWh, 750kW/1.5MWh, 1MW/2.5MWh, 3.7MWh and 5MWh projects.",
+    canonicalPath: "/product-category/containerized-bess/",
+    kicker: "MWh-scale battery storage",
+    h1: "Containerized BESS supplier for MWh-scale energy storage projects",
+    lede: "DJENERGY containerized BESS solutions support solar-plus-storage, microgrids, industrial backup, utility storage, and EPC project deployment. Buyers can compare 250kW/750kWh through 5MWh liquid-cooled systems and request project-specific configuration support.",
+    cards: [
+      {
+        title: "Project range",
+        items: ["250kW/750kWh containerized BESS", "500kW/1MWh and 750kW/1.5MWh systems", "3.7MWh and 5MWh liquid-cooled containers"],
+      },
+      {
+        title: "Used for",
+        items: ["Solar and wind energy storage", "Microgrid and island grid support", "Industrial backup and grid stabilization"],
+      },
+      {
+        title: "Inquiry checklist",
+        items: ["Country, site type, and project timeline", "Target power, energy, and PCS strategy", "Cooling, fire safety, certification, and transport needs"],
+      },
+    ],
+    links: [
+      { text: "View 500kW/1MWh BESS", href: "/product/containerized-bess-500kw-1mwh-solar-plant/", primary: true },
+      { text: "View BESS system page", href: "/bess-system/" },
+      { text: "Request containerized BESS quote", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "What project sizes does DJENERGY containerized BESS support?",
+        answer: "DJENERGY supports containerized energy storage configurations from hundreds of kW and kWh to multi-MWh projects, including 500kW/1MWh, 750kW/1.5MWh, 1MW/2.5MWh, 3.7MWh, and 5MWh classes.",
+      },
+      {
+        question: "What should an EPC provide before requesting a containerized BESS quote?",
+        answer: "Provide country, grid voltage, target power, energy capacity, application, communication protocol needs, safety requirements, and expected commissioning schedule.",
+      },
+    ],
+  },
+  "product-category/home-battery/index.html": {
+    key: "home-battery",
+    title: "LiFePO4 Home Backup Battery Systems | DJENERGY",
+    description: "Explore 16kWh 48V LiFePO4 home backup batteries for solar self-consumption, outage backup, and distributor programs. Request OEM/ODM support.",
+    canonicalPath: "/product-category/home-battery/",
+    kicker: "Residential solar storage",
+    h1: "LiFePO4 home backup battery systems for solar storage",
+    lede: "DJENERGY home battery systems are built for residential solar self-consumption, backup power, distributor programs, and installer-ready energy storage projects. The 16kWh 48V lithium battery is suitable for homes that need reliable LFP storage and clear technical support.",
+    cards: [
+      {
+        title: "Best for",
+        items: ["Solar installers and distributors", "Home backup and outage protection", "Residential self-consumption programs"],
+      },
+      {
+        title: "Product focus",
+        items: ["16kWh 48V lithium battery", "Wall-mounted LiFePO4 battery storage", "OEM/ODM branding and channel support"],
+      },
+      {
+        title: "Inquiry checklist",
+        items: ["Target market and certification needs", "Inverter compatibility", "Order quantity, branding, and delivery plan"],
+      },
+    ],
+    links: [
+      { text: "View 16kWh home battery", href: "/product/16kw-48v-lithium-ion-battery-314ah/", primary: true },
+      { text: "See home backup page", href: "/home-backup-battery/" },
+      { text: "Ask about distributor support", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "Who should use the DJENERGY home battery category?",
+        answer: "Solar installers, distributors, and residential energy storage buyers who need LiFePO4 home backup batteries with technical and OEM/ODM support.",
+      },
+      {
+        question: "What information helps quote a home battery order?",
+        answer: "Share target country, battery capacity, inverter brand, certification needs, private-label requirements, order quantity, and expected delivery time.",
+      },
+    ],
+  },
+  "product-category/bess-system/index.html": {
+    key: "bess-system-category",
+    title: "Battery Energy Storage Systems (BESS) Manufacturer | DJENERGY",
+    description: "Explore DJENERGY BESS products from C&I ESS cabinets to liquid-cooled containerized battery energy storage systems for solar, backup, and microgrid projects.",
+    canonicalPath: "/product-category/bess-system/",
+    kicker: "Battery energy storage systems",
+    h1: "Battery energy storage systems from C&I cabinets to containerized BESS",
+    lede: "DJENERGY manufactures battery energy storage systems that connect LiFePO4 cells, modules, C&I ESS cabinets, and containerized BESS into project-ready solutions for commercial, industrial, solar, and utility applications.",
+    cards: [
+      {
+        title: "Product families",
+        items: ["All-in-one C&I ESS cabinets", "Liquid-cooled containerized BESS", "LiFePO4 cells and system-level support"],
+      },
+      {
+        title: "Project applications",
+        items: ["Peak shaving and backup power", "Solar-plus-storage and microgrids", "Utility and industrial energy storage"],
+      },
+      {
+        title: "Inquiry checklist",
+        items: ["Application and country", "Required kW, kWh, and backup duration", "PCS, voltage, certification, and timeline"],
+      },
+    ],
+    links: [
+      { text: "View BESS system guide", href: "/bess-system/", primary: true },
+      { text: "Compare C&I ESS cabinets", href: "/product-category/all-in-one-ci-ess/" },
+      { text: "Request BESS quote", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "What BESS products does DJENERGY manufacture?",
+        answer: "DJENERGY supplies all-in-one C&I ESS cabinets, containerized BESS, home storage systems, LiFePO4 cells, and system-level support for energy storage projects.",
+      },
+      {
+        question: "How can buyers choose between a C&I cabinet and containerized BESS?",
+        answer: "C&I cabinets are usually best for smaller commercial sites and faster cabinet deployment. Containerized BESS is better for larger MWh-scale solar, microgrid, industrial, or utility projects.",
+      },
+    ],
+  },
+};
 
 const textExtensions = new Set([
   ".css",
@@ -237,6 +524,125 @@ function makeAbsoluteReference(value, pageUrl) {
 
 function safeJsonForHtml(data) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function setTitleTag(content, title) {
+  const tag = `<title>${escapeHtml(title)}</title>`;
+  return /<title>[\s\S]*?<\/title>/i.test(content)
+    ? content.replace(/<title>[\s\S]*?<\/title>/i, tag)
+    : content.replace(/<\/head>/i, `${tag}\n</head>`);
+}
+
+function setMetaTag(content, attributeName, attributeValue, metaContent) {
+  const escapedValue = escapeHtml(attributeValue);
+  const tag = `<meta ${attributeName}="${escapedValue}" content="${escapeHtml(metaContent)}">`;
+  const pattern = new RegExp(`<meta\\s+[^>]*${attributeName}=["']${escapedValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["'][^>]*>`, "i");
+  return pattern.test(content)
+    ? content.replace(pattern, tag)
+    : content.replace(/<\/head>/i, `${tag}\n</head>`);
+}
+
+function buildCommercialCategorySection(config) {
+  const cards = config.cards.map((card) => {
+    const items = card.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+    return `<article class="dj-seo-category__card"><h2>${escapeHtml(card.title)}</h2><ul>${items}</ul></article>`;
+  }).join("");
+  const links = config.links.map((link) => {
+    const className = link.primary ? "" : " class=\"secondary\"";
+    return `<a${className} href="${escapeHtml(link.href)}">${escapeHtml(link.text)}</a>`;
+  }).join("");
+
+  return `<section class="dj-seo-category" data-dj-seo-enhancement="${escapeHtml(config.key)}">
+  <p class="dj-seo-category__kicker">${escapeHtml(config.kicker)}</p>
+  <h1>${escapeHtml(config.h1)}</h1>
+  <p class="dj-seo-category__lede">${escapeHtml(config.lede)}</p>
+  <div class="dj-seo-category__grid">${cards}</div>
+  <div class="dj-seo-category__links">${links}</div>
+</section>
+`;
+}
+
+function buildCommercialCategorySchema(config, canonicalUrl) {
+  return safeJsonForHtml({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${canonicalUrl}#commercial-category`,
+        "url": canonicalUrl,
+        "name": config.title,
+        "description": config.description,
+        "isPartOf": {
+          "@id": `${productionOrigin}/#website`,
+        },
+        "about": {
+          "@id": `${productionOrigin}/#organization`,
+        },
+        "inLanguage": "en-US",
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${canonicalUrl}#faq`,
+        "mainEntity": config.faqs.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer,
+          },
+        })),
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${canonicalUrl}#buyer-paths`,
+        "name": `${config.h1} buyer path`,
+        "itemListElement": config.links.map((link, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": link.text,
+          "url": makeAbsoluteReference(link.href, canonicalUrl),
+        })),
+      },
+    ],
+  });
+}
+
+function applyCommercialCategoryEnhancement(content, relativePath, canonicalUrl) {
+  const config = commercialCategoryEnhancements[relativePath];
+  if (!config) {
+    return content;
+  }
+
+  let result = setTitleTag(content, config.title);
+  result = setMetaTag(result, "name", "description", config.description);
+  result = setMetaTag(result, "property", "og:title", config.title);
+  result = setMetaTag(result, "property", "og:description", config.description);
+  result = setMetaTag(result, "name", "twitter:title", config.title);
+  result = setMetaTag(result, "name", "twitter:description", config.description);
+
+  if (!result.includes(`data-dj-seo-enhancement="${config.key}"`)) {
+    result = result.replace(
+      /<header class="woocommerce-products-header">\s*<\/header>/i,
+      `<header class="woocommerce-products-header">\n${buildCommercialCategorySection(config)}</header>`,
+    );
+  }
+
+  if (!result.includes(`data-dj-schema="${config.key}"`)) {
+    result = result.replace(
+      /<\/head>/i,
+      `<script type="application/ld+json" data-dj-schema="${escapeHtml(config.key)}">${buildCommercialCategorySchema(config, canonicalUrl)}</script>\n</head>`,
+    );
+  }
+
+  return result;
 }
 
 function typeIncludes(data, expectedTypes) {
@@ -791,8 +1197,13 @@ async function main() {
 
     const original = await readFile(filePath, "utf8");
     const relativePath = path.relative(outputDir, filePath).split(path.sep).join("/");
+    const canonicalUrl = extension === ".html" ? productionUrlForHtml(filePath) : "";
     const updated = extension === ".html"
-      ? makeIndexableHtml(original, productionUrlForHtml(filePath), shouldNoindexHtml(relativePath, original))
+      ? applyCommercialCategoryEnhancement(
+          makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
+          relativePath,
+          canonicalUrl,
+        )
       : extension === ".xml" && /sitemap/i.test(relativePath)
         ? makeAbsoluteSitemap(original)
         : replaceSiteReferences(original);

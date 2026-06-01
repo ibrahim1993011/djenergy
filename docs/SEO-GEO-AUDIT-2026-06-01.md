@@ -9,6 +9,11 @@ Date: 2026-06-01
   and `DEPLOYMENT.md`.
 - Added `docs/SEO-GEO-GROWTH-PLAN.md` with keyword clusters and workstreams.
 - Changed static feed clones and meta-refresh redirect pages to `noindex, follow`.
+- Added `docs/KEYWORD-MAP.md` so each priority page has one primary search
+  intent, supporting keywords, and a conversion CTA.
+- Enhanced five product-category pages with optimized titles, meta descriptions,
+  buyer-intent intro sections, inquiry checklists, internal CTAs, FAQ schema, and
+  ItemList buyer-path schema.
 
 ## Current Crawl Snapshot
 
@@ -26,17 +31,18 @@ Date: 2026-06-01
    stay crawlable but not indexable, which is now enforced.
 3. Month archive redirect pages were indexable even though they redirect users to
    `/`. They are now `noindex, follow`.
-4. Category, tag, and product taxonomy pages often lack custom meta descriptions.
-   These should be improved next, but not all taxonomy pages deserve equal
-   attention. Product-category pages should come first.
+4. Product-category pages were thin list pages. The five highest-value product
+   categories now have commercial landing-page content and structured data.
+   Lower-priority taxonomy pages should be reviewed later.
 5. The highest-value commercial clusters are LiFePO4 cells, C&I ESS cabinets,
    containerized BESS, home backup batteries, and factory/OEM capability.
 
 ## Next Recommended SEO Changes
 
-1. Add optimized meta descriptions and stronger copy to product-category pages.
-2. Add FAQ/Product/Breadcrumb schema where missing on core product and category pages.
-3. Build internal links from blog articles to commercial product/category pages.
+1. Build internal links from blog articles to commercial product/category pages.
+2. Improve `/factory/` and `/what-we-do/` with more proof: QC, process, capacity,
+   documents, certifications, and project workflow.
+3. Add FAQ/Product/Breadcrumb schema where missing on core product pages.
 4. Expand the global GEO hub with unique country/application sections, not thin
    country-name swaps.
 5. Submit or re-submit `https://djenergy.solar/sitemap_index.xml` in Google Search
