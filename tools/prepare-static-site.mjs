@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -54,7 +55,6 @@ const staticAssetReferences = [...staticAssetFiles, ...staticAssetReferenceOnly]
   return references;
 });
 const staticFixCssPathname = "/assets/djenergy-static-fixes.css";
-const staticFixLink = `  <link rel="stylesheet" id="djenergy-static-fixes-css" href="${staticFixCssPathname}" type="text/css" media="all">`;
 const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 .qodef-mobile-header-logo-link .qodef-header-logo-image {
   max-height: 50px;
@@ -311,6 +311,8 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
   }
 }
 `;
+const staticFixCssVersion = createHash("sha256").update(staticFixCss).digest("hex").slice(0, 12);
+const staticFixLink = `  <link rel="stylesheet" id="djenergy-static-fixes-css" href="${staticFixCssPathname}?v=${staticFixCssVersion}" type="text/css" media="all">`;
 
 const commercialCategoryEnhancements = {
   "product-category/battery-cells/index.html": {
@@ -651,9 +653,10 @@ async function writeStaticFixCss() {
 
 function injectStaticFixes(content) {
   const oldInlineStylePattern = /\s*<style id=["']djenergy-static-fixes["']>[\s\S]*?<\/style>/i;
+  const staticFixLinkPattern = /<link\s+[^>]*id=["']djenergy-static-fixes-css["'][^>]*>/i;
   let result = content.replace(oldInlineStylePattern, `\n${staticFixLink}`);
-  if (/<link\s+[^>]*id=["']djenergy-static-fixes-css["'][^>]*>/i.test(result)) {
-    return result;
+  if (staticFixLinkPattern.test(result)) {
+    return result.replace(staticFixLinkPattern, staticFixLink.trim());
   }
   if (!result.includes("</head>")) {
     return content;

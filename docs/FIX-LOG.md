@@ -18,6 +18,8 @@
   minimum 44px tap target.
 - The same generated CSS moves `.dj-wa-icon-float` to the lower-right corner on
   mobile with `bottom: 18px`, while preserving the floating inquiry entry point.
+- The static fixes stylesheet is now linked with a generated hash query string
+  so browsers refresh the CSS immediately after future style changes.
 - These rules are generated every time the static export is prepared, so future
   WordPress/Simply Static uploads keep the mobile fix automatically.
 

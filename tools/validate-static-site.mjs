@@ -133,6 +133,9 @@ async function validateTextAssets(errors) {
       if (!content.includes("djenergy-static-fixes.css")) {
         addError(errors, `${relativePath} is missing the static fixes CSS link`);
       }
+      if (!/djenergy-static-fixes\.css\?v=[a-f0-9]{12}/.test(content)) {
+        addError(errors, `${relativePath} is missing a cache-busted static fixes CSS link`);
+      }
       if (
         isBlogArticle(relativePath)
         && !allowedLvHvTitlePages.has(relativePath)
@@ -160,6 +163,12 @@ async function validateKnownPages(errors) {
   }
   if (!css.includes("aspect-ratio: 16 / 9")) {
     addError(errors, "Static fixes CSS does not preserve the blog thumbnail aspect-ratio guard");
+  }
+  if (!css.includes("min-height: 44px")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile tap target guard");
+  }
+  if (!css.includes("bottom: 18px !important")) {
+    addError(errors, "Static fixes CSS does not preserve the mobile WhatsApp placement guard");
   }
   if (!robots.includes(`Sitemap: ${productionOrigin}/sitemap_index.xml`)) {
     addError(errors, "robots.txt does not point crawlers to the production sitemap index");
