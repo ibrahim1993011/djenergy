@@ -295,6 +295,21 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .qodef-search-form-button,
+  .wp-block-search__button,
+  button[type="submit"],
+  input[type="submit"] {
+    min-height: 44px;
+  }
+
+  .dj-wa-icon-float {
+    bottom: 18px !important;
+    right: 14px !important;
+    top: auto !important;
+  }
+}
 `;
 
 const commercialCategoryEnhancements = {

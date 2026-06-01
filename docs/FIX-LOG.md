@@ -1,5 +1,35 @@
 # DJENERGY Fix Log
 
+## 2026-06-01: Mobile Layout And Tap Targets
+
+### Problems
+
+- Mobile audit needed to confirm the static site did not reintroduce the logo,
+  Blog spacing, or horizontal overflow issues after SEO/GEO enhancements.
+- Blog sidebar search buttons rendered at 36px high on mobile, below the
+  common 44px touch target guideline.
+- The WhatsApp floating inquiry button used a fixed mid-screen `top` position on
+  mobile, which could overlap reading content.
+
+### Durable Fixes
+
+- `tools/prepare-static-site.mjs` now adds mobile rules to
+  `/assets/djenergy-static-fixes.css` so search and submit buttons keep a
+  minimum 44px tap target.
+- The same generated CSS moves `.dj-wa-icon-float` to the lower-right corner on
+  mobile with `bottom: 18px`, while preserving the floating inquiry entry point.
+- These rules are generated every time the static export is prepared, so future
+  WordPress/Simply Static uploads keep the mobile fix automatically.
+
+### Verification
+
+- Local mobile viewport checked at 390x844.
+- Pages checked: `/`, `/product-category/battery-cells/`,
+  `/product-category/containerized-bess/`, `/blog/what-is-a-containerized-bess/`,
+  `/factory/`, `/what-we-do/`, and `/contact-us/`.
+- Results: no horizontal overflow; mobile logo visible; Blog search buttons
+  render at 44px high; WhatsApp button sits at the mobile lower-right corner.
+
 ## 2026-05-28: Header Logo And Blog Archive Card Spacing
 
 ### Problems
