@@ -37,6 +37,13 @@ const commercialSeoPages = [
   ["product-category/home-battery/index.html", "home-battery"],
   ["product-category/bess-system/index.html", "bess-system-category"],
 ];
+const allowedLvHvTitlePages = new Set([
+  "blog/what-is-the-difference-between-lv-and-hv-voltage/index.html",
+]);
+const manufacturingProofPages = [
+  "factory/index.html",
+  "what-we-do/index.html",
+];
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -68,6 +75,17 @@ function shouldNoindexHtml(relativePath, content) {
     || relativePath.endsWith("/feed/index.html")
     || /<title>\s*Redirecting\.\.\.\s*<\/title>/i.test(content)
     || /<meta\s+[^>]*http-equiv=["']refresh["'][^>]*>/i.test(content);
+}
+
+function isBlogArticle(relativePath) {
+  return relativePath.startsWith("blog/")
+    && relativePath.endsWith("/index.html")
+    && relativePath !== "blog/index.html"
+    && !relativePath.startsWith("blog/page/")
+    && !relativePath.includes("/feed/")
+    && !relativePath.includes("/tag/")
+    && !relativePath.includes("/category/")
+    && !/^blog\/20\d{2}\//.test(relativePath);
 }
 
 async function validateRequiredFiles(errors) {
@@ -114,6 +132,13 @@ async function validateTextAssets(errors) {
       }
       if (!content.includes("djenergy-static-fixes.css")) {
         addError(errors, `${relativePath} is missing the static fixes CSS link`);
+      }
+      if (
+        isBlogArticle(relativePath)
+        && !allowedLvHvTitlePages.has(relativePath)
+        && /<title>\s*What is the difference between LV and HV voltage\?\s*<\/title>/i.test(content)
+      ) {
+        addError(errors, `${relativePath} still has the duplicate LV/HV title`);
       }
     }
   }
@@ -168,12 +193,58 @@ async function validateCommercialSeoPages(errors) {
   }
 }
 
+async function validateBlogNextSteps(errors) {
+  const files = await walk(outputDir);
+  let blogArticleCount = 0;
+  let nextStepCount = 0;
+
+  for (const filePath of files) {
+    if (path.basename(filePath) !== "index.html") {
+      continue;
+    }
+
+    const relativePath = path.relative(outputDir, filePath).split(path.sep).join("/");
+    if (!isBlogArticle(relativePath)) {
+      continue;
+    }
+
+    blogArticleCount += 1;
+    const content = await readFile(filePath, "utf8");
+    if (content.includes("data-dj-blog-next-step=") && content.includes("data-dj-blog-schema=")) {
+      nextStepCount += 1;
+    } else {
+      addError(errors, `${relativePath} is missing the blog commercial next-step module or schema`);
+    }
+    if (!content.includes("/contact-us/")) {
+      addError(errors, `${relativePath} is missing a contact CTA`);
+    }
+  }
+
+  if (blogArticleCount < 20 || nextStepCount !== blogArticleCount) {
+    addError(errors, `Expected all blog articles to have next-step modules; found ${nextStepCount}/${blogArticleCount}`);
+  }
+}
+
+async function validateManufacturingProofPages(errors) {
+  for (const relativePath of manufacturingProofPages) {
+    const content = await readText(relativePath);
+    if (!content.includes("data-dj-manufacturing-proof=\"cells-to-system\"")) {
+      addError(errors, `${relativePath} is missing the cells-to-system manufacturing proof section`);
+    }
+    if (!content.includes("data-dj-manufacturing-schema=\"cells-to-system\"")) {
+      addError(errors, `${relativePath} is missing the manufacturing proof structured data`);
+    }
+  }
+}
+
 async function main() {
   const errors = [];
   await validateRequiredFiles(errors);
   await validateTextAssets(errors);
   await validateKnownPages(errors);
   await validateCommercialSeoPages(errors);
+  await validateBlogNextSteps(errors);
+  await validateManufacturingProofPages(errors);
 
   if (errors.length > 0) {
     console.error(`Static site validation failed with ${errors.length} issue(s):`);

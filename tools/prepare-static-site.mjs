@@ -204,6 +204,92 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
   color: #08745c !important;
 }
 
+.dj-blog-next-step,
+.dj-manufacturing-proof {
+  background: #f7faf8;
+  border: 1px solid #dce7e2;
+  border-radius: 24px;
+  margin: 42px 0;
+  padding: clamp(26px, 4vw, 42px);
+}
+
+.dj-blog-next-step__kicker,
+.dj-manufacturing-proof__kicker {
+  color: #08745c;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.dj-blog-next-step h2,
+.dj-manufacturing-proof h2 {
+  color: #062c28;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.12;
+  margin: 0 0 14px;
+}
+
+.dj-blog-next-step p,
+.dj-manufacturing-proof p,
+.dj-manufacturing-proof li {
+  color: #52615f;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.dj-blog-next-step__links,
+.dj-manufacturing-proof__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.dj-blog-next-step__links a,
+.dj-manufacturing-proof__links a {
+  background: #08745c;
+  border-radius: 999px;
+  color: #fff !important;
+  font-weight: 800;
+  padding: 12px 18px;
+  text-decoration: none;
+}
+
+.dj-blog-next-step__links a.secondary,
+.dj-manufacturing-proof__links a.secondary {
+  background: #fff;
+  border: 1px solid #08745c;
+  color: #08745c !important;
+}
+
+.dj-manufacturing-proof__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 26px;
+}
+
+.dj-manufacturing-proof__card {
+  background: #fff;
+  border: 1px solid #e2ebe6;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.dj-manufacturing-proof__card h3 {
+  color: #062c28;
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+@media (max-width: 900px) {
+  .dj-manufacturing-proof__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 900px) {
   .dj-seo-category__grid {
     grid-template-columns: 1fr;
@@ -403,6 +489,69 @@ const commercialCategoryEnhancements = {
     ],
   },
 };
+
+const blogNextStepProfiles = {
+  bess: {
+    key: "bess",
+    kicker: "Next step for BESS buyers",
+    title: "Planning a battery energy storage project?",
+    description: "Use this guide as technical background, then compare DJENERGY BESS cabinets, containerized systems, and factory support for your project.",
+    links: [
+      { text: "View BESS product family", href: "/product-category/bess-system/", primary: true },
+      { text: "Read BESS system guide", href: "/bess-system/" },
+      { text: "Request BESS quote", href: "/contact-us/" },
+    ],
+  },
+  containerized: {
+    key: "containerized-bess",
+    kicker: "Next step for MWh-scale projects",
+    title: "Need a containerized BESS configuration?",
+    description: "For solar-plus-storage, microgrid, industrial backup, or utility projects, compare DJENERGY containerized BESS options and send your kW/kWh target for sizing support.",
+    links: [
+      { text: "View containerized BESS", href: "/product-category/containerized-bess/", primary: true },
+      { text: "View 500kW/1MWh system", href: "/product/containerized-bess-500kw-1mwh-solar-plant/" },
+      { text: "Request project support", href: "/contact-us/" },
+    ],
+  },
+  ci: {
+    key: "ci-ess",
+    kicker: "Next step for commercial storage",
+    title: "Compare C&I ESS cabinet sizes",
+    description: "If the project is for a factory, commercial building, EV charging site, or peak-shaving application, start with DJENERGY all-in-one C&I ESS cabinets.",
+    links: [
+      { text: "View C&I ESS cabinets", href: "/product-category/all-in-one-ci-ess/", primary: true },
+      { text: "View BESS guide", href: "/bess-system/" },
+      { text: "Request project sizing", href: "/contact-us/" },
+    ],
+  },
+  cells: {
+    key: "battery-cells",
+    kicker: "Next step for LiFePO4 buyers",
+    title: "Source LiFePO4 cells for ESS production",
+    description: "For OEM packs, modules, racks, or ESS integration, review DJENERGY 314Ah LFP prismatic cells and factory-direct cell-to-system manufacturing support.",
+    links: [
+      { text: "View LFP battery cells", href: "/product-category/battery-cells/", primary: true },
+      { text: "View 314Ah LFP cell", href: "/product/lfp-prismatic-cell-314ah/" },
+      { text: "Request datasheet", href: "/contact-us/" },
+    ],
+  },
+  home: {
+    key: "home-battery",
+    kicker: "Next step for solar backup",
+    title: "Match solar education with home battery storage",
+    description: "If the project is residential solar self-consumption or backup power, compare DJENERGY LiFePO4 home backup battery options and distributor support.",
+    links: [
+      { text: "View home batteries", href: "/product-category/home-battery/", primary: true },
+      { text: "See home backup page", href: "/home-backup-battery/" },
+      { text: "Ask about distributor support", href: "/contact-us/" },
+    ],
+  },
+};
+
+const manufacturingProofPages = new Set([
+  "factory/index.html",
+  "what-we-do/index.html",
+]);
 
 const textExtensions = new Set([
   ".css",
@@ -613,6 +762,253 @@ function buildCommercialCategorySchema(config, canonicalUrl) {
       },
     ],
   });
+}
+
+function isBlogArticle(relativePath) {
+  return relativePath.startsWith("blog/")
+    && relativePath.endsWith("/index.html")
+    && relativePath !== "blog/index.html"
+    && !relativePath.startsWith("blog/page/")
+    && !relativePath.includes("/feed/")
+    && !relativePath.includes("/tag/")
+    && !relativePath.includes("/category/")
+    && !/^blog\/20\d{2}\//.test(relativePath);
+}
+
+function extractPlainText(html) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractMainH1(content) {
+  const match = content.match(/<h1[^>]*class=["'][^"']*\bentry-title\b[^"']*["'][^>]*>([\s\S]*?)<\/h1>/i)
+    || content.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+  return match ? extractPlainText(match[1]) : "";
+}
+
+function chooseBlogNextStepProfile(relativePath, content) {
+  const h1 = extractMainH1(content);
+  const title = content.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || "";
+  const text = `${relativePath} ${h1} ${title}`.toLowerCase();
+  if (/(ci-ess|c&i|what-is-ci-solar|cabinet|peak-shaving|ev-charging)/i.test(text)) {
+    return blogNextStepProfiles.ci;
+  }
+  if (/(containerized|mwh|megawatt|power-conversion-system|grid-energy|bess-projects|project-development|microgrid)/i.test(text)) {
+    return blogNextStepProfiles.containerized;
+  }
+  if (/(lifepo4|lfp|lithium|bms|c-rate|critical-voltage|battery-life|prismatic-cell)/i.test(text)) {
+    return blogNextStepProfiles.cells;
+  }
+  if (/(home|house|off-grid|solar-system|mppt|pwm|photovoltaic|solar-power-plant|residential)/i.test(text)) {
+    return blogNextStepProfiles.home;
+  }
+  return blogNextStepProfiles.bess;
+}
+
+function buildBlogNextStepSection(profile) {
+  const links = profile.links.map((link) => {
+    const className = link.primary ? "" : " class=\"secondary\"";
+    return `<a${className} href="${escapeHtml(link.href)}">${escapeHtml(link.text)}</a>`;
+  }).join("");
+
+  return `<section class="dj-blog-next-step" data-dj-blog-next-step="${escapeHtml(profile.key)}">
+  <p class="dj-blog-next-step__kicker">${escapeHtml(profile.kicker)}</p>
+  <h2>${escapeHtml(profile.title)}</h2>
+  <p>${escapeHtml(profile.description)}</p>
+  <div class="dj-blog-next-step__links">${links}</div>
+</section>
+`;
+}
+
+function buildBlogNextStepSchema(profile, canonicalUrl) {
+  return safeJsonForHtml({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${canonicalUrl}#commercial-next-step`,
+    "name": `${profile.title} - DJENERGY next steps`,
+    "itemListElement": profile.links.map((link, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": link.text,
+      "url": makeAbsoluteReference(link.href, canonicalUrl),
+    })),
+  });
+}
+
+function updateStructuredDataForPage(content, canonicalUrl, title, description) {
+  return content.replace(
+    /<script([^>]*type=["']application\/ld\+json["'][^>]*)>([\s\S]*?)<\/script>/gi,
+    (match, attributes, jsonText) => {
+      try {
+        const parsed = JSON.parse(jsonText.trim());
+        const updateNode = (node) => {
+          if (!node || typeof node !== "object") {
+            return;
+          }
+          const types = Array.isArray(node["@type"]) ? node["@type"] : [node["@type"]];
+          const isPageNode = typeof node.url === "string" && node.url.replace(/#.*$/, "") === canonicalUrl.replace(/#.*$/, "");
+          const isArticleNode = types.some((type) => ["BlogPosting", "Article", "WebPage"].includes(type));
+          if (isArticleNode && (isPageNode || typeof node["@id"] === "string" && node["@id"].startsWith(canonicalUrl))) {
+            node.name = title;
+            node.headline = title;
+            if (description) {
+              node.description = description;
+            }
+          }
+          for (const value of Object.values(node)) {
+            if (Array.isArray(value)) {
+              value.forEach(updateNode);
+            } else if (value && typeof value === "object") {
+              updateNode(value);
+            }
+          }
+        };
+        updateNode(parsed);
+        return `<script${attributes}>${safeJsonForHtml(parsed)}</script>`;
+      } catch {
+        return match;
+      }
+    },
+  );
+}
+
+function applyBlogArticleEnhancement(content, relativePath, canonicalUrl) {
+  if (!isBlogArticle(relativePath)) {
+    return content;
+  }
+
+  const h1 = extractMainH1(content);
+  const title = h1 ? `${h1} | DJENERGY` : "";
+  const profile = chooseBlogNextStepProfile(relativePath, content);
+  const description = h1
+    ? `${h1}: technical guidance from DJENERGY with next-step links to related LiFePO4 battery, BESS, and energy storage products.`
+    : profile.description;
+  let result = content;
+
+  if (title && /<title>\s*What is the difference between LV and HV voltage\?\s*<\/title>/i.test(result)) {
+    result = setTitleTag(result, title);
+    result = setMetaTag(result, "property", "og:title", title);
+    result = setMetaTag(result, "name", "twitter:title", title);
+    result = setMetaTag(result, "name", "description", description);
+    result = setMetaTag(result, "property", "og:description", description);
+    result = setMetaTag(result, "name", "twitter:description", description);
+    result = updateStructuredDataForPage(result, canonicalUrl, title, description);
+  }
+
+  const nextStepSection = buildBlogNextStepSection(profile);
+  const existingNextStepPattern = /<section class="dj-blog-next-step" data-dj-blog-next-step="[^"]+">[\s\S]*?<\/section>\s*/i;
+  if (existingNextStepPattern.test(result)) {
+    result = result.replace(existingNextStepPattern, nextStepSection);
+  } else {
+    const closeArticleIndex = result.indexOf("</article>");
+    if (closeArticleIndex !== -1) {
+      result = `${result.slice(0, closeArticleIndex)}${nextStepSection}${result.slice(closeArticleIndex)}`;
+    }
+  }
+
+  const blogSchema = `<script type="application/ld+json" data-dj-blog-schema="${escapeHtml(profile.key)}">${buildBlogNextStepSchema(profile, canonicalUrl)}</script>\n`;
+  const existingBlogSchemaPattern = /<script type="application\/ld\+json" data-dj-blog-schema="[^"]+">[\s\S]*?<\/script>\s*/i;
+  if (existingBlogSchemaPattern.test(result)) {
+    result = result.replace(existingBlogSchemaPattern, blogSchema);
+  } else {
+    result = result.replace(
+      /<\/head>/i,
+      `${blogSchema}</head>`,
+    );
+  }
+
+  return result;
+}
+
+function buildManufacturingProofSection() {
+  return `<section class="dj-manufacturing-proof" data-dj-manufacturing-proof="cells-to-system">
+  <p class="dj-manufacturing-proof__kicker">Factory proof for B2B buyers</p>
+  <h2>From LiFePO4 cells to complete energy storage systems</h2>
+  <p>DJENERGY supports overseas buyers from battery cell sourcing through module, rack, C&I ESS cabinet, and containerized BESS supply. Use this manufacturing proof section to check what information our team can prepare before quotation.</p>
+  <div class="dj-manufacturing-proof__grid">
+    <article class="dj-manufacturing-proof__card">
+      <h3>Manufacturing scope</h3>
+      <ul>
+        <li>LiFePO4 prismatic cells and ESS battery modules</li>
+        <li>HV rack batteries, home backup batteries, and C&I ESS cabinets</li>
+        <li>Containerized BESS configurations for MWh-scale projects</li>
+      </ul>
+    </article>
+    <article class="dj-manufacturing-proof__card">
+      <h3>Quality and documentation</h3>
+      <ul>
+        <li>Cell consistency checks, BMS matching, and ATE verification</li>
+        <li>Project drawings, datasheets, packing details, and delivery planning</li>
+        <li>OEM/ODM communication for integrators, EPCs, and distributors</li>
+      </ul>
+    </article>
+    <article class="dj-manufacturing-proof__card">
+      <h3>Quote preparation</h3>
+      <ul>
+        <li>Share country, voltage, power, energy, and backup duration</li>
+        <li>Tell us whether you need cells, cabinets, containers, or full ESS</li>
+        <li>Include certification, branding, and delivery schedule requirements</li>
+      </ul>
+    </article>
+  </div>
+  <div class="dj-manufacturing-proof__links">
+    <a href="/product-category/battery-cells/">View battery cells</a>
+    <a class="secondary" href="/product-category/bess-system/">View BESS systems</a>
+    <a class="secondary" href="/contact-us/">Contact factory sales</a>
+  </div>
+</section>
+`;
+}
+
+function buildManufacturingProofSchema(canonicalUrl) {
+  return safeJsonForHtml({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${canonicalUrl}#manufacturing-proof`,
+    "name": "DJENERGY cells-to-system manufacturing proof",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "LiFePO4 battery cells and ESS modules",
+        "url": `${productionOrigin}/product-category/battery-cells/`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Battery energy storage systems",
+        "url": `${productionOrigin}/product-category/bess-system/`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Contact DJENERGY factory sales",
+        "url": `${productionOrigin}/contact-us/`,
+      },
+    ],
+  });
+}
+
+function applyManufacturingProofEnhancement(content, relativePath, canonicalUrl) {
+  if (!manufacturingProofPages.has(relativePath)) {
+    return content;
+  }
+
+  let result = content;
+  if (!result.includes("data-dj-manufacturing-proof=")) {
+    result = result.replace(/<\/main>/i, `${buildManufacturingProofSection()}</main>`);
+  }
+  if (!result.includes("data-dj-manufacturing-schema=")) {
+    result = result.replace(
+      /<\/head>/i,
+      `<script type="application/ld+json" data-dj-manufacturing-schema="cells-to-system">${buildManufacturingProofSchema(canonicalUrl)}</script>\n</head>`,
+    );
+  }
+  return result;
 }
 
 function applyCommercialCategoryEnhancement(content, relativePath, canonicalUrl) {
@@ -1199,8 +1595,16 @@ async function main() {
     const relativePath = path.relative(outputDir, filePath).split(path.sep).join("/");
     const canonicalUrl = extension === ".html" ? productionUrlForHtml(filePath) : "";
     const updated = extension === ".html"
-      ? applyCommercialCategoryEnhancement(
-          makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
+      ? applyManufacturingProofEnhancement(
+          applyBlogArticleEnhancement(
+            applyCommercialCategoryEnhancement(
+              makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
+              relativePath,
+              canonicalUrl,
+            ),
+            relativePath,
+            canonicalUrl,
+          ),
           relativePath,
           canonicalUrl,
         )

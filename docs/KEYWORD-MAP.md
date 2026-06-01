@@ -29,7 +29,9 @@ competing against each other.
 
 ## Blog To Commercial Linking Rules
 
-Every educational article should point to one commercial next step:
+Every educational article should point to one commercial next step. These rules
+are implemented in `tools/prepare-static-site.mjs` and documented in
+`docs/BLOG-INTERNAL-LINKS.md`.
 
 | Blog Topic | Link To |
 | --- | --- |

@@ -14,12 +14,19 @@ Date: 2026-06-01
 - Enhanced five product-category pages with optimized titles, meta descriptions,
   buyer-intent intro sections, inquiry checklists, internal CTAs, FAQ schema, and
   ItemList buyer-path schema.
+- Added Blog commercial next-step modules across 29 single articles and documented
+  the routing rules in `docs/BLOG-INTERNAL-LINKS.md`.
+- Corrected duplicate Blog titles that reused "What is the difference between LV
+  and HV voltage?" on unrelated articles.
+- Added cells-to-system manufacturing proof sections to `/factory/` and
+  `/what-we-do/`.
 
 ## Current Crawl Snapshot
 
 - HTML files in `public/`: 167
 - Static feed clone pages: 62
 - Meta-refresh redirect pages: 7
+- Single Blog articles with commercial next-step modules: 29
 - HTML pages without meta description: 44 before feed/redirect cleanup
 - Duplicate home title instances: mainly feed clones before noindex cleanup
 
@@ -36,13 +43,16 @@ Date: 2026-06-01
    Lower-priority taxonomy pages should be reviewed later.
 5. The highest-value commercial clusters are LiFePO4 cells, C&I ESS cabinets,
    containerized BESS, home backup batteries, and factory/OEM capability.
+6. Blog pages now send educational traffic to matching commercial pages and
+   contact CTAs, improving the path from traffic to inquiry.
 
 ## Next Recommended SEO Changes
 
-1. Build internal links from blog articles to commercial product/category pages.
-2. Improve `/factory/` and `/what-we-do/` with more proof: QC, process, capacity,
-   documents, certifications, and project workflow.
-3. Add FAQ/Product/Breadcrumb schema where missing on core product pages.
+1. Improve `/factory/` and `/what-we-do/` with more specific proof: QC process,
+   production capacity, test equipment, certificates, and project workflow photos.
+2. Add FAQ/Product/Breadcrumb schema where missing on core product pages.
+3. Add in-body links to the highest-impression Blog articles after Search Console
+   data identifies winners.
 4. Expand the global GEO hub with unique country/application sections, not thin
    country-name swaps.
 5. Submit or re-submit `https://djenergy.solar/sitemap_index.xml` in Google Search
