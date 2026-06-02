@@ -1,5 +1,38 @@
 # DJENERGY Fix Log
 
+## 2026-06-02: Full-Site Image Asset Closure
+
+### Problems
+
+- The homepage hero image area and multiple product/gallery images could render
+  as empty blocks or alt text because the static export referenced upload files
+  that were not present in `public/`.
+- Several upload files were committed with percent-encoded filenames, while the
+  browser requests the decoded filename on static hosting.
+- Legacy WordPress/Elementor image paths still pointed to assets that no longer
+  exist on the WordPress origin, so re-exporting could reintroduce broken images.
+
+### Durable Fixes
+
+- Added `tools/audit-image-assets.mjs` to scan HTML, CSS, JS, JSON, XML, feeds,
+  schema, `srcset`, data attributes, and CSS `background-image` references.
+- Added `tools/repair-image-assets.mjs` to copy percent-encoded upload filenames
+  to decoded filenames and create business-appropriate fallback files for legacy
+  missing image paths.
+- Updated the GitHub Actions deployment flow to run image repair before
+  validation and deployment.
+- Updated the homepage hero CSS so the hero image belongs to the right visual
+  container instead of sitting behind the text.
+
+### Verification
+
+- The full image audit now checks 897 referenced image paths and reports 0
+  missing assets.
+- `tools/validate-static-site.mjs` now fails deployment if any referenced image
+  asset is missing.
+- Local browser checks confirmed the 16kWh product gallery loads its images and
+  the homepage hero displays correctly on desktop and mobile without overlap.
+
 ## 2026-06-02: Product Page RFQ And Structured Data
 
 ### Problems

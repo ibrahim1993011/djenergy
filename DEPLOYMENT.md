@@ -27,18 +27,24 @@ static files before publication:
 - Create a fallback `404.html` when Simply Static 404 generation is disabled.
 - Copy logo/favicon assets with stable ASCII filenames and rewrite exported references
   to avoid Cloudflare URL-decoding misses.
+- Copy percent-encoded upload filenames to their decoded filenames and create
+  business-appropriate fallback files for legacy image paths that no longer
+  exist in WordPress, so exported pages do not ship broken images.
 - Write `/assets/djenergy-static-fixes.css` to preserve the header logo display and
   the Blog archive card thumbnail/text spacing after each export.
 - Run `tools/validate-static-site.mjs` before Cloudflare deployment. The validation
   fails the release if old encoded logo references, source-origin URLs, missing
-  canonicals, missing sitemap signals, or missing static CSS guards reappear.
+  canonicals, missing sitemap signals, missing referenced image assets, or
+  missing static CSS guards reappear.
 
 ## GitHub repository contents
 
 Commit these items to `ibrahim1993011/djenergy`:
 
 - `.github/workflows/deploy-cloudflare-pages.yml`
+- `tools/audit-image-assets.mjs`
 - `tools/prepare-static-site.mjs`
+- `tools/repair-image-assets.mjs`
 - `tools/validate-static-site.mjs`
 - `public/` (the prepared full-site static output)
 
@@ -71,6 +77,7 @@ Run these commands before every manual upload or commit:
 
 ```bash
 node tools/prepare-static-site.mjs public https://djenergy.solar
+node tools/repair-image-assets.mjs public
 node tools/validate-static-site.mjs public https://djenergy.solar
 ```
 
@@ -84,6 +91,8 @@ The validation protects the May 2026 fixes:
 - Blog archive pages must include `/assets/djenergy-static-fixes.css`, which keeps
   card images at a fixed 16:9 ratio and removes the stretched gap between image
   and text.
+- Every referenced local image in HTML, CSS, JS, JSON, XML, feeds, schema, srcset,
+  data attributes, and CSS background images must exist in `public/`.
 - Public pages must have `index, follow` robots metadata and production canonical
   URLs.
 - Static feed clones and meta-refresh redirect pages must have `noindex, follow`

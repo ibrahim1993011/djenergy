@@ -1,5 +1,6 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
+import { auditImages } from "./audit-image-assets.mjs";
 
 const outputDir = path.resolve(process.argv[2] || "public");
 const productionOrigin = (process.argv[3] || "https://djenergy.solar").replace(/\/+$/, "");
@@ -192,6 +193,11 @@ async function validateKnownPages(errors) {
   if (!css.includes("body .qodef-banner .qodef-m-image img") || !css.includes("min-height: 0 !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile banner image ratio guard");
   }
+  if (!css.includes("body.home .elementor-982 .elementor-element.elementor-element-ac0f089")
+    || !css.includes("body.home .elementor-982 .elementor-element.elementor-element-057abe4")
+    || !css.includes("/wp-content/uploads/2026/01/home-page-1-1.jpg")) {
+    addError(errors, "Static fixes CSS does not preserve the homepage hero image placement guard");
+  }
   if (!css.includes(".elementor .e-con.e-flex > .e-con-inner") || !css.includes("flex-direction: column !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile Elementor container stacking guard");
   }
@@ -326,6 +332,19 @@ async function validateProductInquiryPages(errors) {
   }
 }
 
+async function validateImageAssets(errors) {
+  const audit = await auditImages(outputDir);
+  if (audit.missingImages === 0) {
+    return;
+  }
+
+  const samples = audit.missing.slice(0, 12).map((item) => {
+    const source = item.sampleSources[0] ? ` from ${item.sampleSources[0]}` : "";
+    return `- ${item.url}${source}`;
+  });
+  addError(errors, `missing ${audit.missingImages} referenced image asset(s):\n${samples.join("\n")}`);
+}
+
 async function main() {
   const errors = [];
   await validateRequiredFiles(errors);
@@ -335,6 +354,7 @@ async function main() {
   await validateBlogNextSteps(errors);
   await validateManufacturingProofPages(errors);
   await validateProductInquiryPages(errors);
+  await validateImageAssets(errors);
 
   if (errors.length > 0) {
     console.error(`Static site validation failed with ${errors.length} issue(s):`);
