@@ -149,13 +149,6 @@ async function validateTextAssets(errors) {
       if (!/djenergy-static-fixes\.css\?v=[a-f0-9]{12}/.test(content)) {
         addError(errors, `${relativePath} is missing a cache-busted static fixes CSS link`);
       }
-      if (
-        isBlogArticle(relativePath)
-        && !allowedLvHvTitlePages.has(relativePath)
-        && /<title>\s*What is the difference between LV and HV voltage\?\s*<\/title>/i.test(content)
-      ) {
-        addError(errors, `${relativePath} still has the duplicate LV/HV title`);
-      }
     }
   }
 }
@@ -175,52 +168,8 @@ async function validateKnownPages(errors) {
   if (!blog.includes("/wp-content/uploads/2025/12/djenergy-logo-main.png")) {
     addError(errors, "Blog page does not reference the stable main logo asset");
   }
-  if (!css.includes("aspect-ratio: 16 / 9")) {
-    addError(errors, "Static fixes CSS does not preserve the blog thumbnail aspect-ratio guard");
-  }
-  if (!css.includes("min-height: 44px")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile tap target guard");
-  }
-  if (!css.includes("bottom: 18px !important")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile WhatsApp placement guard");
-  }
-  if (!css.includes("elementor-element-94fb9c1") || !css.includes("flex-direction: column !important")) {
-    addError(errors, "Static fixes CSS does not preserve the Factory mobile hero layout guard");
-  }
-  if (!css.includes("body [class*=\"elementor-\"] .elementor-widget-image img") || !css.includes("height: auto !important")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile image ratio guard");
-  }
-  if (!css.includes("Home hero: restore the original split image format")
-    || !css.includes("/wp-content/uploads/2026/01/DJENERGY-LFP-Cells.jpg")
-    || !css.includes("body.home .elementor-982 .elementor-element.elementor-element-057abe4")) {
-    addError(errors, "Static fixes CSS does not preserve the Home split hero image guard");
-  }
-  if (!css.includes("body .qodef-banner .qodef-m-image img") || !css.includes("min-height: 0 !important")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile banner image ratio guard");
-  }
-  if (!css.includes(".elementor .e-con.e-flex > .e-con-inner") || !css.includes("flex-direction: column !important")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile Elementor container stacking guard");
-  }
-  if (!css.includes("elementor-element-5143ff81") || !css.includes("elementor-element-9da0e4b")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile About/Solutions hero width guards");
-  }
-  if (!css.includes("linear-gradient(rgba(15, 23, 42, .68)") || !css.includes("/wp-content/uploads/2026/01/Factory-1.jpg") || !css.includes("text-transform: none !important")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile hero readability guards");
-  }
-  if (!css.includes(".woocommerce-product-gallery .zoomImg")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile product zoom guard");
-  }
-  if (!css.includes("#qodef-page-outer table") || !css.includes("white-space: normal !important")) {
-    addError(errors, "Static fixes CSS does not preserve the mobile article table and heading wrap guard");
-  }
-  if (!css.includes(".dj-product-rfq") || !css.includes(".dj-product-rfq__grid")) {
-    addError(errors, "Static fixes CSS does not preserve the product RFQ module styling");
-  }
-  if (factory.includes("DJENERGY FACTORY-CELLS-TO-SYSTEM ENERGY STORAGE MANUFACTURING")) {
-    addError(errors, "Factory page still contains the cramped all-caps mobile hero title");
-  }
-  if (!factory.includes("DJENERGY Factory: Cells-to-System Energy Storage Manufacturing")) {
-    addError(errors, "Factory page is missing the mobile-friendly hero title");
+  if (!css.includes("Source-design static deployment guard")) {
+    addError(errors, "Static fixes CSS is not in source-design deployment mode");
   }
   if (!robots.includes(`Sitemap: ${productionOrigin}/sitemap_index.xml`)) {
     addError(errors, "robots.txt does not point crawlers to the production sitemap index");
@@ -351,10 +300,6 @@ async function main() {
   await validateRequiredFiles(errors);
   await validateTextAssets(errors);
   await validateKnownPages(errors);
-  await validateCommercialSeoPages(errors);
-  await validateBlogNextSteps(errors);
-  await validateManufacturingProofPages(errors);
-  await validateProductInquiryPages(errors);
   await validateImageAssets(errors);
 
   if (errors.length > 0) {

@@ -51,6 +51,10 @@ const staticAssetReferences = [...staticAssetFiles, ...staticAssetReferenceOnly]
   const decoded = decodeURIComponent(from);
   if (decoded !== from) {
     references.push([decoded, to]);
+    references.push([
+      decoded.replace(/[^\x00-\x7F]/g, (char) => `\\u${char.codePointAt(0).toString(16).padStart(4, "0")}`),
+      to,
+    ]);
   }
   return references;
 });
@@ -525,7 +529,12 @@ body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
   }
 }
 `;
-const staticFixCssVersion = createHash("sha256").update(staticFixCss).digest("hex").slice(0, 12);
+const sourceDesignStaticFixCss = `/* Source-design static deployment guard.
+   Keep this file intentionally non-invasive: WordPress/Elementor remains the
+   source of truth for layout and imagery. */
+`;
+const activeStaticFixCss = sourceDesignStaticFixCss;
+const staticFixCssVersion = createHash("sha256").update(activeStaticFixCss).digest("hex").slice(0, 12);
 const staticFixLink = `  <link rel="stylesheet" id="djenergy-static-fixes-css" href="${staticFixCssPathname}?v=${staticFixCssVersion}" type="text/css" media="all">`;
 
 const commercialCategoryEnhancements = {
@@ -990,7 +999,7 @@ async function ensureStaticAssetCopies() {
 async function writeStaticFixCss() {
   const targetPath = urlPathToFilePath(staticFixCssPathname);
   await mkdir(path.dirname(targetPath), { recursive: true });
-  await writeFile(targetPath, staticFixCss, "utf8");
+  await writeFile(targetPath, activeStaticFixCss, "utf8");
 }
 
 function injectStaticFixes(content) {
@@ -2158,26 +2167,7 @@ async function main() {
     const relativePath = path.relative(outputDir, filePath).split(path.sep).join("/");
     const canonicalUrl = extension === ".html" ? productionUrlForHtml(filePath) : "";
     let updated = extension === ".html"
-      ? applyMobileLayoutContentFixes(
-          applyManufacturingProofEnhancement(
-            applyBlogArticleEnhancement(
-              applyProductPageEnhancement(
-                applyCommercialCategoryEnhancement(
-                  makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
-                  relativePath,
-                  canonicalUrl,
-                ),
-                relativePath,
-                canonicalUrl,
-              ),
-              relativePath,
-              canonicalUrl,
-            ),
-            relativePath,
-            canonicalUrl,
-          ),
-          relativePath,
-        )
+      ? makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original))
       : extension === ".xml" && /sitemap/i.test(relativePath)
         ? makeAbsoluteSitemap(original)
         : replaceSiteReferences(original);
@@ -2200,8 +2190,6 @@ async function main() {
   await writeFallback404();
   await writeRobotsFile();
   await writeLlmsFile();
-  await writeGlobalGeoPage();
-  await ensureGlobalGeoInSitemap();
   await mkdir(path.join(outputDir, ".well-known"), { recursive: true });
 
   console.log(`Prepared ${htmlCount} HTML files, scanned ${textCount} text assets, and removed ${removedCount} invalid email-link pages for ${productionOrigin}.`);
