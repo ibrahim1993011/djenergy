@@ -30,8 +30,6 @@ const forbiddenPatterns = [
   /372\u00d784/i,
   /cropped-512%C3%97512/i,
   /cropped-512\u00d7512/i,
-  /%E5%8F%B3%E4%BE%A7%E4%BB%B0%E8%A7%864-%E6%BA%90%E6%96%87%E4%BB%B6-01-scaled\.jpg/i,
-  /右侧仰视4-源文件-01-scaled\.jpg/i,
 ];
 const commercialSeoPages = [
   ["product-category/battery-cells/index.html", "battery-cells"],
@@ -195,10 +193,9 @@ async function validateKnownPages(errors) {
   if (!css.includes("body .qodef-banner .qodef-m-image img") || !css.includes("min-height: 0 !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile banner image ratio guard");
   }
-  if (!css.includes("body.home .elementor-982 .elementor-element.elementor-element-ac0f089")
-    || !css.includes("body.home .elementor-982 .elementor-element.elementor-element-057abe4")
-    || !css.includes("/wp-content/uploads/2026/01/home-page-1-1.jpg")) {
-    addError(errors, "Static fixes CSS does not preserve the homepage hero image placement guard");
+  if (css.includes("body.home .elementor-982 .elementor-element.elementor-element-ac0f089")
+    || css.includes("body.home .elementor-982 .elementor-element.elementor-element-057abe4")) {
+    addError(errors, "Static fixes CSS still overrides the original homepage hero image layout");
   }
   if (!css.includes(".elementor .e-con.e-flex > .e-con-inner") || !css.includes("flex-direction: column !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile Elementor container stacking guard");
@@ -333,18 +330,6 @@ async function validateProductInquiryPages(errors) {
     addError(errors, "180kW/372kWh product page still has the wrong product heading or schema name");
   }
 
-  const homeBatteryPage = await readText("product/16kw-48v-lithium-ion-battery-314ah/index.html");
-  const unstableHomeBatteryImages = [
-    "/wp-content/uploads/2024/11/右侧仰视4-源文件-01-scaled.jpg",
-    "/wp-content/uploads/2024/11/右侧仰视4-源文件-02-scaled.jpg",
-    "/wp-content/uploads/2024/11/右侧仰视4-源文件-03.jpg",
-    "/wp-content/uploads/2024/11/侧视图.jpg",
-  ];
-  for (const imagePath of unstableHomeBatteryImages) {
-    if (homeBatteryPage.includes(imagePath) || homeBatteryPage.includes(encodeURI(imagePath))) {
-      addError(errors, `16kWh home battery product page still references unstable image path: ${imagePath}`);
-    }
-  }
 }
 
 async function validateImageAssets(errors) {

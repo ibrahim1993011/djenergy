@@ -21,21 +21,21 @@
   missing image paths.
 - Updated the GitHub Actions deployment flow to run image repair before
   validation and deployment.
-- Updated the homepage hero CSS so the hero image belongs to the right visual
-  container instead of sitting behind the text.
-- Normalized unstable 16kWh home battery image references from large
-  original/scaled files to stable 900x900 product images, and the related
-  2025/12 home-backup image to its stable 800x803 derivative, across HTML,
-  schema, gallery attributes, page content, and image sitemap output.
-- Added a validation guard so the 16kWh product page cannot be deployed again
-  with those unstable original/scaled image paths.
+- Restored the homepage hero to the original Elementor background-image design
+  mode after confirming the required `home-page-1-1.jpg` asset exists locally.
+- Restored the 16kWh home battery, home-backup, and related blog image
+  references to their original full/scaled design paths now that those original
+  image assets exist in the static bundle.
+- Removed the later forced 900x900/800x803 product-image rewrite rule. Future
+  exports should keep the original WordPress/Elementor image choices and rely
+  on image asset auditing to prevent broken files.
 
 ### Verification
 
 - The full image audit now checks 897 referenced image paths and reports 0
   missing assets.
-- After the product image normalization pass, the full image audit checks 893
-  referenced image paths and reports 0 missing assets.
+- After restoring original design image paths, the full image audit still blocks
+  deployment when any referenced image asset is missing.
 - `tools/validate-static-site.mjs` now fails deployment if any referenced image
   asset is missing.
 - Local browser checks confirmed the 16kWh product gallery loads its images and

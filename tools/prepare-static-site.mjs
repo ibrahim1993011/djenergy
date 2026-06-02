@@ -54,33 +54,6 @@ const staticAssetReferences = [...staticAssetFiles, ...staticAssetReferenceOnly]
   }
   return references;
 });
-const productImageReferenceReplacements = [
-  {
-    from: "/wp-content/uploads/2024/11/右侧仰视4-源文件-01-scaled.jpg",
-    to: "/wp-content/uploads/2024/11/右侧仰视4-源文件-01-900x900.jpg",
-  },
-  {
-    from: "/wp-content/uploads/2024/11/右侧仰视4-源文件-02-scaled.jpg",
-    to: "/wp-content/uploads/2024/11/右侧仰视4-源文件-02-900x900.jpg",
-  },
-  {
-    from: "/wp-content/uploads/2024/11/右侧仰视4-源文件-03.jpg",
-    to: "/wp-content/uploads/2024/11/右侧仰视4-源文件-03-900x900.jpg",
-  },
-  {
-    from: "/wp-content/uploads/2024/11/侧视图.jpg",
-    to: "/wp-content/uploads/2024/11/侧视图-900x900.jpg",
-  },
-  {
-    from: "/wp-content/uploads/2025/12/右侧仰视4-源文件-01-scaled.jpg",
-    to: "/wp-content/uploads/2025/12/右侧仰视4-源文件-01-800x803.jpg",
-  },
-];
-const productImageReferencePairs = productImageReferenceReplacements.flatMap(({ from, to }) => {
-  const encodedFrom = encodeURI(from);
-  const encodedTo = encodeURI(to);
-  return encodedFrom === from ? [[from, to]] : [[from, to], [encodedFrom, encodedTo]];
-});
 const staticFixCssPathname = "/assets/djenergy-static-fixes.css";
 const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 .qodef-mobile-header-logo-link .qodef-header-logo-image {
@@ -91,19 +64,6 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 
 #qodef-page-mobile-header .qodef-mobile-header-logo-link .qodef-header-logo-image {
   max-height: 40px;
-}
-
-body.home .elementor-982 .elementor-element.elementor-element-ac0f089 {
-  background-image: none !important;
-  background-color: #fff !important;
-}
-
-body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
-  background-image: url("/wp-content/uploads/2026/01/home-page-1-1.jpg") !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  min-height: 520px !important;
 }
 
 .elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post {
@@ -349,11 +309,6 @@ body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
 }
 
 @media (max-width: 768px) {
-  body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
-    min-height: 260px !important;
-    width: 100% !important;
-  }
-
   #qodef-page-outer h1,
   .qodef-page-title .qodef-m-title,
   .elementor-widget-heading h1.elementor-heading-title {
@@ -974,19 +929,12 @@ function replaceStaticAssetReferences(content) {
   return result;
 }
 
-function replaceProductImageReferences(content) {
-  let result = content;
-  for (const [from, to] of productImageReferencePairs) {
-    result = result.replaceAll(from, to);
-  }
-  return result.replace(
-    /(data-lazyload="\/wp-content\/uploads\/2025\/12\/右侧仰视4-源文件-01-800x803\.jpg"[^>]*>)\s+(?=\r?\n)/g,
-    "$1",
-  );
+function removeTrailingWhitespace(content) {
+  return content.replace(/[ \t]+(?=\r?\n)/g, "");
 }
 
 function replaceSiteReferences(content) {
-  return replaceProductImageReferences(replaceStaticAssetReferences(replaceSourceOrigins(content)));
+  return replaceStaticAssetReferences(replaceSourceOrigins(content));
 }
 
 function urlPathToFilePath(urlPath) {
@@ -2178,7 +2126,7 @@ async function main() {
     const original = await readFile(filePath, "utf8");
     const relativePath = path.relative(outputDir, filePath).split(path.sep).join("/");
     const canonicalUrl = extension === ".html" ? productionUrlForHtml(filePath) : "";
-    const updated = extension === ".html"
+    let updated = extension === ".html"
       ? applyMobileLayoutContentFixes(
           applyManufacturingProofEnhancement(
             applyBlogArticleEnhancement(
@@ -2202,6 +2150,10 @@ async function main() {
       : extension === ".xml" && /sitemap/i.test(relativePath)
         ? makeAbsoluteSitemap(original)
         : replaceSiteReferences(original);
+
+    if (extension === ".html") {
+      updated = removeTrailingWhitespace(updated);
+    }
 
     if (updated !== original) {
       await writeFile(filePath, updated, "utf8");

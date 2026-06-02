@@ -9,19 +9,6 @@
   max-height: 40px;
 }
 
-body.home .elementor-982 .elementor-element.elementor-element-ac0f089 {
-  background-image: none !important;
-  background-color: #fff !important;
-}
-
-body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
-  background-image: url("/wp-content/uploads/2026/01/home-page-1-1.jpg") !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  min-height: 520px !important;
-}
-
 .elementor-17623 .elementor-element.elementor-element-5e69a310 .elementor-post {
   background: #fff;
   display: flex;
@@ -265,11 +252,6 @@ body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
 }
 
 @media (max-width: 768px) {
-  body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
-    min-height: 260px !important;
-    width: 100% !important;
-  }
-
   #qodef-page-outer h1,
   .qodef-page-title .qodef-m-title,
   .elementor-widget-heading h1.elementor-heading-title {
