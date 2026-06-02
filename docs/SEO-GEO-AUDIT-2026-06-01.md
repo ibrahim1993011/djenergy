@@ -20,6 +20,11 @@ Date: 2026-06-01
   and HV voltage?" on unrelated articles.
 - Added cells-to-system manufacturing proof sections to `/factory/` and
   `/what-we-do/`.
+- Added product RFQ modules and RFQ/FAQ structured data to all 10 product pages,
+  with profile-specific paths for LiFePO4 cells, C&I ESS cabinets, containerized
+  BESS, and home batteries.
+- Corrected the `/product/180kw-372kwh-ci-energy-storage-systems/` page so it no
+  longer exposes the homepage title/H1/schema signals.
 
 ## Current Crawl Snapshot
 
@@ -50,7 +55,9 @@ Date: 2026-06-01
 
 1. Improve `/factory/` and `/what-we-do/` with more specific proof: QC process,
    production capacity, test equipment, certificates, and project workflow photos.
-2. Add FAQ/Product/Breadcrumb schema where missing on core product pages.
+2. Expand the strongest product pages with more unique specs, comparison blocks,
+   downloadable datasheet CTAs, and project photos after buyer priorities are
+   confirmed.
 3. Add in-body links to the highest-impression Blog articles after Search Console
    data identifies winners.
 4. Expand the global GEO hub with unique country/application sections, not thin

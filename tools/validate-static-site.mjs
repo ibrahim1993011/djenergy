@@ -44,6 +44,18 @@ const manufacturingProofPages = [
   "factory/index.html",
   "what-we-do/index.html",
 ];
+const productInquiryPages = [
+  "product/110kw-174kwh-ci-energy-storage-systems/index.html",
+  "product/180kw-372kwh-ci-energy-storage-systems/index.html",
+  "product/high-capacity-100kwh-battery-energy-storage-system/index.html",
+  "product/16kw-48v-lithium-ion-battery-314ah/index.html",
+  "product/lfp-prismatic-cell-314ah/index.html",
+  "product/containerized-250kw-750kw-backup-storage/index.html",
+  "product/containerized-3-7mw-5mw-solar-energy-plant/index.html",
+  "product/containerized-bess-500kw-1mwh-solar-plant/index.html",
+  "product/containerized-bess-750kw-1-5mwh/index.html",
+  "product/containerized-storage-with-lifepo4-battery/index.html",
+];
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -195,6 +207,9 @@ async function validateKnownPages(errors) {
   if (!css.includes("#qodef-page-outer table") || !css.includes("white-space: normal !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile article table and heading wrap guard");
   }
+  if (!css.includes(".dj-product-rfq") || !css.includes(".dj-product-rfq__grid")) {
+    addError(errors, "Static fixes CSS does not preserve the product RFQ module styling");
+  }
   if (factory.includes("DJENERGY FACTORY-CELLS-TO-SYSTEM ENERGY STORAGE MANUFACTURING")) {
     addError(errors, "Factory page still contains the cramped all-caps mobile hero title");
   }
@@ -277,6 +292,40 @@ async function validateManufacturingProofPages(errors) {
   }
 }
 
+async function validateProductInquiryPages(errors) {
+  for (const relativePath of productInquiryPages) {
+    const content = await readText(relativePath);
+    if (!content.includes("data-dj-product-rfq=")) {
+      addError(errors, `${relativePath} is missing the product RFQ inquiry module`);
+    }
+    const rfqModuleCount = (content.match(/data-dj-product-rfq=/g) || []).length;
+    if (rfqModuleCount !== 1) {
+      addError(errors, `${relativePath} has ${rfqModuleCount} product RFQ inquiry modules`);
+    }
+    if (!content.includes('id="product-rfq"')) {
+      addError(errors, `${relativePath} is missing the product RFQ anchor`);
+    }
+    if (!content.includes("data-dj-product-rfq-schema=")) {
+      addError(errors, `${relativePath} is missing the product RFQ structured data`);
+    }
+    if (!/"@type"\s*:\s*"Product"|"@type"\s*:\s*\[[^\]]*"Product"/i.test(content)) {
+      addError(errors, `${relativePath} is missing Product structured data`);
+    }
+    if (!content.includes("/contact-us/")) {
+      addError(errors, `${relativePath} is missing a product inquiry contact CTA`);
+    }
+  }
+
+  const highCapacityPage = await readText("product/180kw-372kwh-ci-energy-storage-systems/index.html");
+  if (!highCapacityPage.includes("180kW 372kWh C&amp;I Energy Storage System | DJENERGY")
+    && !highCapacityPage.includes("180kW 372kWh C&I Energy Storage System | DJENERGY")) {
+    addError(errors, "180kW/372kWh product page still has the wrong title");
+  }
+  if (!highCapacityPage.includes("180kW/372kWh C&I Energy Storage System")) {
+    addError(errors, "180kW/372kWh product page still has the wrong product heading or schema name");
+  }
+}
+
 async function main() {
   const errors = [];
   await validateRequiredFiles(errors);
@@ -285,6 +334,7 @@ async function main() {
   await validateCommercialSeoPages(errors);
   await validateBlogNextSteps(errors);
   await validateManufacturingProofPages(errors);
+  await validateProductInquiryPages(errors);
 
   if (errors.length > 0) {
     console.error(`Static site validation failed with ${errors.length} issue(s):`);

@@ -205,7 +205,8 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 }
 
 .dj-blog-next-step,
-.dj-manufacturing-proof {
+.dj-manufacturing-proof,
+.dj-product-rfq {
   background: #f7faf8;
   border: 1px solid #dce7e2;
   border-radius: 24px;
@@ -214,7 +215,8 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 }
 
 .dj-blog-next-step__kicker,
-.dj-manufacturing-proof__kicker {
+.dj-manufacturing-proof__kicker,
+.dj-product-rfq__kicker {
   color: #08745c;
   font-size: 13px;
   font-weight: 800;
@@ -224,7 +226,8 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 }
 
 .dj-blog-next-step h2,
-.dj-manufacturing-proof h2 {
+.dj-manufacturing-proof h2,
+.dj-product-rfq h2 {
   color: #062c28;
   font-size: clamp(28px, 3vw, 40px);
   line-height: 1.12;
@@ -233,14 +236,17 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 
 .dj-blog-next-step p,
 .dj-manufacturing-proof p,
-.dj-manufacturing-proof li {
+.dj-manufacturing-proof li,
+.dj-product-rfq p,
+.dj-product-rfq li {
   color: #52615f;
   font-size: 16px;
   line-height: 1.7;
 }
 
 .dj-blog-next-step__links,
-.dj-manufacturing-proof__links {
+.dj-manufacturing-proof__links,
+.dj-product-rfq__links {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -248,7 +254,8 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 }
 
 .dj-blog-next-step__links a,
-.dj-manufacturing-proof__links a {
+.dj-manufacturing-proof__links a,
+.dj-product-rfq__links a {
   background: #08745c;
   border-radius: 999px;
   color: #fff !important;
@@ -258,34 +265,39 @@ const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 }
 
 .dj-blog-next-step__links a.secondary,
-.dj-manufacturing-proof__links a.secondary {
+.dj-manufacturing-proof__links a.secondary,
+.dj-product-rfq__links a.secondary {
   background: #fff;
   border: 1px solid #08745c;
   color: #08745c !important;
 }
 
-.dj-manufacturing-proof__grid {
+.dj-manufacturing-proof__grid,
+.dj-product-rfq__grid {
   display: grid;
   gap: 18px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 26px;
 }
 
-.dj-manufacturing-proof__card {
+.dj-manufacturing-proof__card,
+.dj-product-rfq__card {
   background: #fff;
   border: 1px solid #e2ebe6;
   border-radius: 18px;
   padding: 22px;
 }
 
-.dj-manufacturing-proof__card h3 {
+.dj-manufacturing-proof__card h3,
+.dj-product-rfq__card h3 {
   color: #062c28;
   font-size: 20px;
   margin: 0 0 10px;
 }
 
 @media (max-width: 900px) {
-  .dj-manufacturing-proof__grid {
+  .dj-manufacturing-proof__grid,
+  .dj-product-rfq__grid {
     grid-template-columns: 1fr;
   }
 }
@@ -732,6 +744,130 @@ const blogNextStepProfiles = {
       { text: "View home batteries", href: "/product-category/home-battery/", primary: true },
       { text: "See home backup page", href: "/home-backup-battery/" },
       { text: "Ask about distributor support", href: "/contact-us/" },
+    ],
+  },
+};
+
+const productInquiryProfiles = {
+  cells: {
+    key: "battery-cells",
+    kicker: "Battery cell RFQ support",
+    headlinePrefix: "Request datasheet and quotation for",
+    lede: "For cell sourcing, module production, or OEM battery pack integration, send your target quantity, application, document requirements, and delivery schedule. DJENERGY can support cell supply and downstream ESS integration discussions from the same factory team.",
+    bestFor: ["ESS module builders", "Battery pack factories", "C&I and containerized BESS integrators"],
+    checklist: ["Cell model and target quantity", "Module or pack design plan", "Test report, certificate, and packing needs"],
+    links: [
+      { text: "View battery cell category", href: "/product-category/battery-cells/", primary: true },
+      { text: "See factory capability", href: "/factory/" },
+      { text: "Request datasheet", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "What information helps DJENERGY quote LiFePO4 battery cells?",
+        answer: "Share the target cell model, quantity, application, destination country, documentation needs, and whether the cells will be used for modules, racks, or complete ESS products.",
+      },
+      {
+        question: "Can DJENERGY support cell-to-system projects?",
+        answer: "Yes. DJENERGY supports buyers from LiFePO4 cell sourcing through module, rack, C&I ESS cabinet, and containerized BESS supply discussions.",
+      },
+    ],
+  },
+  ci: {
+    key: "ci-ess",
+    kicker: "C&I ESS project sizing",
+    headlinePrefix: "Request project sizing for",
+    lede: "For factories, commercial buildings, EV charging sites, and solar-plus-storage projects, DJENERGY can review load profile, PV input, grid voltage, backup duration, and cabinet quantity before quotation.",
+    bestFor: ["Peak shaving and demand-charge reduction", "Solar self-consumption and backup", "Commercial sites, factories, and EV charging stations"],
+    checklist: ["Country and grid voltage", "Target kW, kWh, and backup duration", "Indoor/outdoor use, PV/PCS plan, and certification needs"],
+    links: [
+      { text: "Compare C&I ESS cabinets", href: "/product-category/all-in-one-ci-ess/", primary: true },
+      { text: "Read BESS system guide", href: "/bess-system/" },
+      { text: "Request project sizing", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "How should buyers size a C&I ESS cabinet project?",
+        answer: "Start with the load profile, peak demand, required backup time, grid voltage, PV input, installation environment, and target operating mode such as peak shaving, backup, or self-consumption.",
+      },
+      {
+        question: "What does DJENERGY need before quoting a C&I ESS cabinet?",
+        answer: "Provide country, grid voltage, target power and energy, site application, indoor or outdoor use, communication needs, certification requirements, and expected delivery schedule.",
+      },
+    ],
+  },
+  containerized: {
+    key: "containerized-bess",
+    kicker: "Containerized BESS RFQ support",
+    headlinePrefix: "Request containerized BESS configuration for",
+    lede: "For MWh-scale solar, microgrid, industrial backup, and utility projects, DJENERGY can support containerized BESS sizing, PCS strategy, thermal management, fire-safety planning, and project documentation before quotation.",
+    bestFor: ["Solar-plus-storage and microgrids", "Industrial backup and grid support", "Utility or EPC-led MWh-scale projects"],
+    checklist: ["Target MW/MWh and discharge duration", "Grid voltage, PCS strategy, and site country", "Cooling, fire safety, communication, transport, and certification needs"],
+    links: [
+      { text: "View containerized BESS category", href: "/product-category/containerized-bess/", primary: true },
+      { text: "View BESS system page", href: "/bess-system/" },
+      { text: "Request containerized quote", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "What information is needed for a containerized BESS quotation?",
+        answer: "Share the project country, target MW and MWh, discharge duration, grid voltage, PCS plan, operating scenario, safety requirements, communication protocol, and delivery timeline.",
+      },
+      {
+        question: "Can DJENERGY support liquid-cooled containerized BESS projects?",
+        answer: "Yes. DJENERGY supports liquid-cooled containerized BESS configurations for solar, microgrid, industrial backup, and utility-scale energy storage projects.",
+      },
+    ],
+  },
+  home: {
+    key: "home-battery",
+    kicker: "Home battery channel support",
+    headlinePrefix: "Request distributor support for",
+    lede: "For residential solar storage, home backup, and channel programs, DJENERGY can review inverter compatibility, branding, certification needs, order quantity, and delivery planning.",
+    bestFor: ["Solar installers and distributors", "Residential backup power", "OEM/ODM home battery programs"],
+    checklist: ["Target market and certification needs", "Inverter compatibility and capacity target", "Branding, order quantity, packing, and shipping plan"],
+    links: [
+      { text: "View home battery category", href: "/product-category/home-battery/", primary: true },
+      { text: "See home backup page", href: "/home-backup-battery/" },
+      { text: "Ask about distributor support", href: "/contact-us/" },
+    ],
+    faqs: [
+      {
+        question: "What information helps quote a home backup battery order?",
+        answer: "Share target country, capacity, inverter brand, certification needs, private-label requirements, order quantity, and expected delivery time.",
+      },
+      {
+        question: "Does DJENERGY support residential battery distributors?",
+        answer: "Yes. DJENERGY can discuss LiFePO4 home battery supply, OEM or ODM branding, inverter compatibility, and distributor-ready packing or documentation.",
+      },
+    ],
+  },
+};
+
+const productPageProfiles = {
+  "product/110kw-174kwh-ci-energy-storage-systems/index.html": "ci",
+  "product/180kw-372kwh-ci-energy-storage-systems/index.html": "ci",
+  "product/high-capacity-100kwh-battery-energy-storage-system/index.html": "ci",
+  "product/16kw-48v-lithium-ion-battery-314ah/index.html": "home",
+  "product/lfp-prismatic-cell-314ah/index.html": "cells",
+  "product/containerized-250kw-750kw-backup-storage/index.html": "containerized",
+  "product/containerized-3-7mw-5mw-solar-energy-plant/index.html": "containerized",
+  "product/containerized-bess-500kw-1mwh-solar-plant/index.html": "containerized",
+  "product/containerized-bess-750kw-1-5mwh/index.html": "containerized",
+  "product/containerized-storage-with-lifepo4-battery/index.html": "containerized",
+};
+
+const productPageOverrides = {
+  "product/180kw-372kwh-ci-energy-storage-systems/index.html": {
+    name: "180kW/372kWh C&I Energy Storage System",
+    title: "180kW 372kWh C&I Energy Storage System | DJENERGY",
+    description: "180kW/372kWh all-in-one C&I energy storage system for commercial solar storage, peak shaving, backup power, and microgrid projects. Request project sizing from DJENERGY.",
+    sku: "DJ-372",
+    category: "All-in-One C&I ESS",
+    image: `${productionOrigin}/wp-content/uploads/2026/01/commercial-industry-all-in-one.jpg`,
+    properties: [
+      { name: "application", value: "Commercial and industrial energy storage" },
+      { name: "chemistry", value: "LiFePO4 (LFP)" },
+      { name: "configuration", value: "All-in-one C&I ESS cabinet" },
     ],
   },
 };
@@ -1197,6 +1333,198 @@ function applyManufacturingProofEnhancement(content, relativePath, canonicalUrl)
       `<script type="application/ld+json" data-dj-manufacturing-schema="cells-to-system">${buildManufacturingProofSchema(canonicalUrl)}</script>\n</head>`,
     );
   }
+  return result;
+}
+
+function extractFirstImageUrl(content, canonicalUrl) {
+  const productImageMatch = content.match(/<img[^>]+class=["'][^"']*(?:wp-post-image|attachment-woocommerce_single|attachment-full)[^"']*["'][^>]+src=["']([^"']+)["']/i)
+    || content.match(/<img[^>]+src=["']([^"']+)["'][^>]+class=["'][^"']*(?:wp-post-image|attachment-woocommerce_single|attachment-full)[^"']*["']/i)
+    || content.match(/<img[^>]+src=["']([^"']+)["']/i);
+  return productImageMatch ? makeAbsoluteReference(productImageMatch[1], canonicalUrl) : "";
+}
+
+function extractSku(content) {
+  return extractPlainText(content.match(/<span[^>]*class=["'][^"']*\bsku\b[^"']*["'][^>]*>([\s\S]*?)<\/span>/i)?.[1] || "");
+}
+
+function extractProductCategory(content) {
+  const categories = content.match(/<span class=["']posted_in["'][\s\S]*?<\/span>/i)?.[0] || "";
+  const categoryNames = [...categories.matchAll(/<a[^>]*>([\s\S]*?)<\/a>/gi)]
+    .map((match) => extractPlainText(match[1]))
+    .filter(Boolean);
+  return categoryNames[0] || "";
+}
+
+function getProductPageData(content, relativePath, canonicalUrl) {
+  const override = productPageOverrides[relativePath] || {};
+  const name = override.name || extractMainH1(content);
+  const description = override.description
+    || content.match(/<meta\s+[^>]*name=["']description["'][^>]*content=["']([^"']+)["'][^>]*>/i)?.[1]
+    || `${name} from DJENERGY for LiFePO4 battery and energy storage projects. Request sizing, datasheet, and quotation support.`;
+  return {
+    name,
+    title: override.title || content.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || `${name} | DJENERGY`,
+    description,
+    sku: override.sku || extractSku(content),
+    category: override.category || extractProductCategory(content),
+    image: override.image || extractFirstImageUrl(content, canonicalUrl),
+    properties: override.properties || [],
+  };
+}
+
+function buildProductRfqSection(product, profile) {
+  const bestFor = profile.bestFor.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  const checklist = profile.checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  const links = profile.links.map((link) => {
+    const className = link.primary ? "" : " class=\"secondary\"";
+    return `<a${className} href="${escapeHtml(link.href)}">${escapeHtml(link.text)}</a>`;
+  }).join("");
+
+  return `<section id="product-rfq" class="dj-product-rfq" data-dj-product-rfq="${escapeHtml(profile.key)}">
+  <p class="dj-product-rfq__kicker">${escapeHtml(profile.kicker)}</p>
+  <h2>${escapeHtml(profile.headlinePrefix)} ${escapeHtml(product.name)}</h2>
+  <p>${escapeHtml(profile.lede)}</p>
+  <div class="dj-product-rfq__grid">
+    <article class="dj-product-rfq__card"><h3>Best-fit projects</h3><ul>${bestFor}</ul></article>
+    <article class="dj-product-rfq__card"><h3>RFQ checklist</h3><ul>${checklist}</ul></article>
+    <article class="dj-product-rfq__card"><h3>Fast response details</h3><ul><li>Product: ${escapeHtml(product.name)}</li><li>SKU: ${escapeHtml(product.sku || "Share required model")}</li><li>Category: ${escapeHtml(product.category || "Energy storage")}</li></ul></article>
+  </div>
+  <div class="dj-product-rfq__links">${links}</div>
+</section>
+`;
+}
+
+function buildSupplementalProductSchema(product, canonicalUrl) {
+  const productNode = {
+    "@type": "Product",
+    "@id": `${canonicalUrl}#dj-product`,
+    "name": product.name,
+    "description": product.description,
+    "url": canonicalUrl,
+    "brand": {
+      "@type": "Brand",
+      "name": "DJENERGY",
+    },
+    "manufacturer": {
+      "@id": `${productionOrigin}/#organization`,
+    },
+    "mainEntityOfPage": {
+      "@id": `${canonicalUrl}#webpage`,
+    },
+  };
+  if (product.sku) {
+    productNode.sku = product.sku;
+  }
+  if (product.category) {
+    productNode.category = product.category;
+  }
+  if (product.image) {
+    productNode.image = [product.image];
+  }
+  if (product.properties.length > 0) {
+    productNode.additionalProperty = product.properties.map((property) => ({
+      "@type": "PropertyValue",
+      "name": property.name,
+      "value": property.value,
+    }));
+  }
+  return productNode;
+}
+
+function buildProductRfqSchema(product, profile, canonicalUrl, includeProductNode) {
+  const graph = [
+    {
+      "@type": "FAQPage",
+      "@id": `${canonicalUrl}#rfq-faq`,
+      "mainEntity": profile.faqs.map((faq) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer,
+        },
+      })),
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${canonicalUrl}#rfq-checklist`,
+      "name": `${product.name} RFQ checklist`,
+      "itemListElement": profile.checklist.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item,
+      })),
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${canonicalUrl}#buyer-links`,
+      "name": `${product.name} buyer next steps`,
+      "itemListElement": profile.links.map((link, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": link.text,
+        "url": makeAbsoluteReference(link.href, canonicalUrl),
+      })),
+    },
+  ];
+
+  if (includeProductNode) {
+    graph.unshift(buildSupplementalProductSchema(product, canonicalUrl));
+  }
+
+  return safeJsonForHtml({
+    "@context": "https://schema.org",
+    "@graph": graph,
+  });
+}
+
+function hasProductSchema(content) {
+  return /"@type"\s*:\s*"Product"|"@type"\s*:\s*\[[^\]]*"Product"/i.test(content);
+}
+
+function applyProductPageEnhancement(content, relativePath, canonicalUrl) {
+  const profileKey = productPageProfiles[relativePath];
+  if (!profileKey) {
+    return content;
+  }
+
+  const profile = productInquiryProfiles[profileKey];
+  const product = getProductPageData(content, relativePath, canonicalUrl);
+  let result = content;
+
+  const override = productPageOverrides[relativePath];
+  if (override?.title) {
+    result = setTitleTag(result, override.title);
+    result = setMetaTag(result, "property", "og:title", override.title);
+    result = setMetaTag(result, "name", "twitter:title", override.title);
+  }
+  if (override?.description) {
+    result = setMetaTag(result, "name", "description", override.description);
+    result = setMetaTag(result, "property", "og:description", override.description);
+    result = setMetaTag(result, "name", "twitter:description", override.description);
+  }
+  if (override?.name) {
+    result = result.replace(/<h1([^>]*)>([\s\S]*?)<\/h1>/i, `<h1$1>${escapeHtml(override.name)}</h1>`);
+  }
+
+  const rfqSection = buildProductRfqSection(product, profile);
+  const existingRfqPattern = /<section(?:\s+id="product-rfq")?\s+class="dj-product-rfq" data-dj-product-rfq="[^"]+">[\s\S]*?<\/section>\s*/i;
+  if (existingRfqPattern.test(result)) {
+    result = result.replace(existingRfqPattern, rfqSection);
+  } else {
+    result = result.replace(/<\/main>/i, `${rfqSection}</main>`);
+  }
+
+  const existingSchemaPattern = /<script type="application\/ld\+json" data-dj-product-rfq-schema="[^"]+">[\s\S]*?<\/script>\s*/i;
+  const sourceWithoutGeneratedProductSchema = result.replace(existingSchemaPattern, "");
+  const includeProductNode = !hasProductSchema(sourceWithoutGeneratedProductSchema);
+  const schema = `<script type="application/ld+json" data-dj-product-rfq-schema="${escapeHtml(profile.key)}">${buildProductRfqSchema(product, profile, canonicalUrl, includeProductNode)}</script>\n`;
+  if (existingSchemaPattern.test(result)) {
+    result = result.replace(existingSchemaPattern, schema);
+  } else {
+    result = result.replace(/<\/head>/i, `${schema}</head>`);
+  }
+
   return result;
 }
 
@@ -1798,8 +2126,12 @@ async function main() {
       ? applyMobileLayoutContentFixes(
           applyManufacturingProofEnhancement(
             applyBlogArticleEnhancement(
-              applyCommercialCategoryEnhancement(
-                makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
+              applyProductPageEnhancement(
+                applyCommercialCategoryEnhancement(
+                  makeIndexableHtml(original, canonicalUrl, shouldNoindexHtml(relativePath, original)),
+                  relativePath,
+                  canonicalUrl,
+                ),
                 relativePath,
                 canonicalUrl,
               ),

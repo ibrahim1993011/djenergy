@@ -1,5 +1,36 @@
 # DJENERGY Fix Log
 
+## 2026-06-02: Product Page RFQ And Structured Data
+
+### Problems
+
+- Product detail pages had Product schema from Rank Math on most pages, but they
+  did not have a consistent buyer RFQ path or product-specific FAQ/RFQ schema.
+- The 180kW/372kWh product URL exposed homepage-style title, H1, and schema
+  signals, making the product page harder for search engines and buyers to
+  understand.
+
+### Durable Fixes
+
+- `tools/prepare-static-site.mjs` now adds one `dj-product-rfq` module with a
+  stable `#product-rfq` anchor to all 10 product pages.
+- Each product page is routed to the right buyer path: LiFePO4 cells, C&I ESS,
+  containerized BESS, or home battery.
+- The generated schema now adds product RFQ FAQ, buyer next-step ItemList, and
+  checklist ItemList data.
+- If a product page lacks Product schema, the build adds supplemental Product
+  structured data. The detection ignores previously generated RFQ schema so
+  repeated static preparation will not remove the Product node.
+- The 180kW/372kWh product page now gets its own product title, meta
+  description, H1, SKU/category data, and Product schema.
+
+### Verification
+
+- `tools/validate-static-site.mjs` blocks deployment if any product page misses
+  the RFQ module, RFQ anchor, RFQ schema, Product schema, or contact CTA. It also
+  fails if repeated generation creates more than one RFQ module on a product
+  page.
+
 ## 2026-06-01: Mobile Typography And Image Layout
 
 ### Problems
