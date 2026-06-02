@@ -71,6 +71,10 @@ const productImageReferenceReplacements = [
     from: "/wp-content/uploads/2024/11/侧视图.jpg",
     to: "/wp-content/uploads/2024/11/侧视图-900x900.jpg",
   },
+  {
+    from: "/wp-content/uploads/2025/12/右侧仰视4-源文件-01-scaled.jpg",
+    to: "/wp-content/uploads/2025/12/右侧仰视4-源文件-01-800x803.jpg",
+  },
 ];
 const productImageReferencePairs = productImageReferenceReplacements.flatMap(({ from, to }) => {
   const encodedFrom = encodeURI(from);
@@ -975,7 +979,10 @@ function replaceProductImageReferences(content) {
   for (const [from, to] of productImageReferencePairs) {
     result = result.replaceAll(from, to);
   }
-  return result;
+  return result.replace(
+    /(data-lazyload="\/wp-content\/uploads\/2025\/12\/右侧仰视4-源文件-01-800x803\.jpg"[^>]*>)\s+(?=\r?\n)/g,
+    "$1",
+  );
 }
 
 function replaceSiteReferences(content) {

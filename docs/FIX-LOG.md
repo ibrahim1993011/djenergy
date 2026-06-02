@@ -23,9 +23,10 @@
   validation and deployment.
 - Updated the homepage hero CSS so the hero image belongs to the right visual
   container instead of sitting behind the text.
-- Normalized unstable 16kWh home battery product image references from large
-  original/scaled files to stable 900x900 product images across HTML, schema,
-  gallery attributes, page content, and image sitemap output.
+- Normalized unstable 16kWh home battery image references from large
+  original/scaled files to stable 900x900 product images, and the related
+  2025/12 home-backup image to its stable 800x803 derivative, across HTML,
+  schema, gallery attributes, page content, and image sitemap output.
 - Added a validation guard so the 16kWh product page cannot be deployed again
   with those unstable original/scaled image paths.
 

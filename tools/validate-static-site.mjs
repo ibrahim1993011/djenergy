@@ -30,6 +30,8 @@ const forbiddenPatterns = [
   /372\u00d784/i,
   /cropped-512%C3%97512/i,
   /cropped-512\u00d7512/i,
+  /%E5%8F%B3%E4%BE%A7%E4%BB%B0%E8%A7%864-%E6%BA%90%E6%96%87%E4%BB%B6-01-scaled\.jpg/i,
+  /右侧仰视4-源文件-01-scaled\.jpg/i,
 ];
 const commercialSeoPages = [
   ["product-category/battery-cells/index.html", "battery-cells"],
