@@ -23,11 +23,18 @@
   validation and deployment.
 - Updated the homepage hero CSS so the hero image belongs to the right visual
   container instead of sitting behind the text.
+- Normalized unstable 16kWh home battery product image references from large
+  original/scaled files to stable 900x900 product images across HTML, schema,
+  gallery attributes, page content, and image sitemap output.
+- Added a validation guard so the 16kWh product page cannot be deployed again
+  with those unstable original/scaled image paths.
 
 ### Verification
 
 - The full image audit now checks 897 referenced image paths and reports 0
   missing assets.
+- After the product image normalization pass, the full image audit checks 893
+  referenced image paths and reports 0 missing assets.
 - `tools/validate-static-site.mjs` now fails deployment if any referenced image
   asset is missing.
 - Local browser checks confirmed the 16kWh product gallery loads its images and
@@ -188,5 +195,6 @@
 
 ```bash
 node tools/prepare-static-site.mjs public https://djenergy.solar
+node tools/repair-image-assets.mjs public
 node tools/validate-static-site.mjs public https://djenergy.solar
 ```

@@ -54,6 +54,29 @@ const staticAssetReferences = [...staticAssetFiles, ...staticAssetReferenceOnly]
   }
   return references;
 });
+const productImageReferenceReplacements = [
+  {
+    from: "/wp-content/uploads/2024/11/右侧仰视4-源文件-01-scaled.jpg",
+    to: "/wp-content/uploads/2024/11/右侧仰视4-源文件-01-900x900.jpg",
+  },
+  {
+    from: "/wp-content/uploads/2024/11/右侧仰视4-源文件-02-scaled.jpg",
+    to: "/wp-content/uploads/2024/11/右侧仰视4-源文件-02-900x900.jpg",
+  },
+  {
+    from: "/wp-content/uploads/2024/11/右侧仰视4-源文件-03.jpg",
+    to: "/wp-content/uploads/2024/11/右侧仰视4-源文件-03-900x900.jpg",
+  },
+  {
+    from: "/wp-content/uploads/2024/11/侧视图.jpg",
+    to: "/wp-content/uploads/2024/11/侧视图-900x900.jpg",
+  },
+];
+const productImageReferencePairs = productImageReferenceReplacements.flatMap(({ from, to }) => {
+  const encodedFrom = encodeURI(from);
+  const encodedTo = encodeURI(to);
+  return encodedFrom === from ? [[from, to]] : [[from, to], [encodedFrom, encodedTo]];
+});
 const staticFixCssPathname = "/assets/djenergy-static-fixes.css";
 const staticFixCss = `.qodef-header-logo-link .qodef-header-logo-image,
 .qodef-mobile-header-logo-link .qodef-header-logo-image {
@@ -947,8 +970,16 @@ function replaceStaticAssetReferences(content) {
   return result;
 }
 
+function replaceProductImageReferences(content) {
+  let result = content;
+  for (const [from, to] of productImageReferencePairs) {
+    result = result.replaceAll(from, to);
+  }
+  return result;
+}
+
 function replaceSiteReferences(content) {
-  return replaceStaticAssetReferences(replaceSourceOrigins(content));
+  return replaceProductImageReferences(replaceStaticAssetReferences(replaceSourceOrigins(content)));
 }
 
 function urlPathToFilePath(urlPath) {

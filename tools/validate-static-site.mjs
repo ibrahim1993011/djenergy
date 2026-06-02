@@ -330,6 +330,19 @@ async function validateProductInquiryPages(errors) {
   if (!highCapacityPage.includes("180kW/372kWh C&I Energy Storage System")) {
     addError(errors, "180kW/372kWh product page still has the wrong product heading or schema name");
   }
+
+  const homeBatteryPage = await readText("product/16kw-48v-lithium-ion-battery-314ah/index.html");
+  const unstableHomeBatteryImages = [
+    "/wp-content/uploads/2024/11/右侧仰视4-源文件-01-scaled.jpg",
+    "/wp-content/uploads/2024/11/右侧仰视4-源文件-02-scaled.jpg",
+    "/wp-content/uploads/2024/11/右侧仰视4-源文件-03.jpg",
+    "/wp-content/uploads/2024/11/侧视图.jpg",
+  ];
+  for (const imagePath of unstableHomeBatteryImages) {
+    if (homeBatteryPage.includes(imagePath) || homeBatteryPage.includes(encodeURI(imagePath))) {
+      addError(errors, `16kWh home battery product page still references unstable image path: ${imagePath}`);
+    }
+  }
 }
 
 async function validateImageAssets(errors) {
