@@ -127,19 +127,21 @@
 - Product gallery and home backup product images needed to stay on the original
   Elementor/WooCommerce image sources instead of being normalized to alternate
   resized filenames.
-- The homepage hero image is part of the original Elementor background design,
-  but on mobile the copy could overlap the image and reduce readability.
+- The homepage hero should use the original split layout pattern: copy on the
+  left and a product/system visual on the right, not a full-container factory
+  background image.
 
 ### Durable Fixes
 
 - `tools/prepare-static-site.mjs` preserves original homepage and product image
   references while still auditing that every image asset exists in the static
   export.
-- The generated `/assets/djenergy-static-fixes.css` now includes a mobile-only
-  homepage hero readability guard: original hero image remains in the design,
-  while the text block stays on a white layer and the image sits below the copy.
-- `tools/validate-static-site.mjs` now checks that the homepage mobile hero guard
-  is present and continues blocking the older right-container image override.
+- The generated `/assets/djenergy-static-fixes.css` now removes the homepage
+  outer-container background and restores the right-side visual container with
+  `/wp-content/uploads/2026/01/DJENERGY-LFP-Cells.jpg`, matching the homepage
+  "Battery Cells to Energy Storage Systems" message.
+- `tools/validate-static-site.mjs` now checks that the homepage split hero image
+  guard is present before deployment.
 
 ### Verification
 

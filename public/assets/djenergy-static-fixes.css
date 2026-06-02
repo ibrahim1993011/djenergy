@@ -238,6 +238,22 @@
   margin: 0 0 10px;
 }
 
+/* Home hero: restore the original split image format instead of using a full-container background. */
+body.home .elementor-982 .elementor-element.elementor-element-ac0f089:not(.elementor-motion-effects-element-type-background),
+body.home .elementor-982 .elementor-element.elementor-element-ac0f089 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: none !important;
+  background-color: #fff !important;
+}
+
+body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
+  background-image: url("/wp-content/uploads/2026/01/DJENERGY-LFP-Cells.jpg") !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  min-height: 520px !important;
+  --min-height: 520px;
+}
+
 @media (max-width: 900px) {
   .dj-manufacturing-proof__grid,
   .dj-product-rfq__grid {
@@ -333,14 +349,7 @@
     transform: none !important;
   }
 
-  /* Home mobile hero readability: keep the original background image below the copy. */
-  .elementor-982 .elementor-element.elementor-element-ac0f089:not(.elementor-motion-effects-element-type-background),
-  .elementor-982 .elementor-element.elementor-element-ac0f089 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
-    background-position: center bottom !important;
-    background-size: calc(100% - 32px) auto !important;
-  }
-
-  .elementor-982 .elementor-element.elementor-element-9d38139 {
+  body.home .elementor-982 .elementor-element.elementor-element-9d38139 {
     background-color: #fff !important;
     min-height: auto !important;
     padding-bottom: 12px !important;
@@ -350,9 +359,9 @@
     --padding-bottom: 12px;
   }
 
-  .elementor-982 .elementor-element.elementor-element-057abe4 {
-    min-height: clamp(220px, 64vw, 300px) !important;
-    --min-height: clamp(220px, 64vw, 300px);
+  body.home .elementor-982 .elementor-element.elementor-element-057abe4 {
+    min-height: clamp(240px, 72vw, 330px) !important;
+    --min-height: clamp(240px, 72vw, 330px);
   }
 
   body .elementor .elementor-widget-manufaktursolutions_core_banner,

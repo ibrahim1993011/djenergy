@@ -190,15 +190,13 @@ async function validateKnownPages(errors) {
   if (!css.includes("body [class*=\"elementor-\"] .elementor-widget-image img") || !css.includes("height: auto !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile image ratio guard");
   }
-  if (!css.includes("Home mobile hero readability") || !css.includes("background-position: center bottom !important") || !css.includes("elementor-element-9d38139")) {
-    addError(errors, "Static fixes CSS does not preserve the Home mobile hero readability guard");
+  if (!css.includes("Home hero: restore the original split image format")
+    || !css.includes("/wp-content/uploads/2026/01/DJENERGY-LFP-Cells.jpg")
+    || !css.includes("body.home .elementor-982 .elementor-element.elementor-element-057abe4")) {
+    addError(errors, "Static fixes CSS does not preserve the Home split hero image guard");
   }
   if (!css.includes("body .qodef-banner .qodef-m-image img") || !css.includes("min-height: 0 !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile banner image ratio guard");
-  }
-  if (css.includes("body.home .elementor-982 .elementor-element.elementor-element-ac0f089")
-    || css.includes("body.home .elementor-982 .elementor-element.elementor-element-057abe4")) {
-    addError(errors, "Static fixes CSS still overrides the original homepage hero image layout");
   }
   if (!css.includes(".elementor .e-con.e-flex > .e-con-inner") || !css.includes("flex-direction: column !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile Elementor container stacking guard");
