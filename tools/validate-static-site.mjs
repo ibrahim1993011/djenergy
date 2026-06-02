@@ -190,6 +190,9 @@ async function validateKnownPages(errors) {
   if (!css.includes("body [class*=\"elementor-\"] .elementor-widget-image img") || !css.includes("height: auto !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile image ratio guard");
   }
+  if (!css.includes("Home mobile hero readability") || !css.includes("background-position: center bottom !important") || !css.includes("elementor-element-9d38139")) {
+    addError(errors, "Static fixes CSS does not preserve the Home mobile hero readability guard");
+  }
   if (!css.includes("body .qodef-banner .qodef-m-image img") || !css.includes("min-height: 0 !important")) {
     addError(errors, "Static fixes CSS does not preserve the mobile banner image ratio guard");
   }

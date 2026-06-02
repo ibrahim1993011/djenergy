@@ -333,6 +333,28 @@
     transform: none !important;
   }
 
+  /* Home mobile hero readability: keep the original background image below the copy. */
+  .elementor-982 .elementor-element.elementor-element-ac0f089:not(.elementor-motion-effects-element-type-background),
+  .elementor-982 .elementor-element.elementor-element-ac0f089 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+    background-position: center bottom !important;
+    background-size: calc(100% - 32px) auto !important;
+  }
+
+  .elementor-982 .elementor-element.elementor-element-9d38139 {
+    background-color: #fff !important;
+    min-height: auto !important;
+    padding-bottom: 12px !important;
+    position: relative !important;
+    z-index: 2;
+    --min-height: auto;
+    --padding-bottom: 12px;
+  }
+
+  .elementor-982 .elementor-element.elementor-element-057abe4 {
+    min-height: clamp(220px, 64vw, 300px) !important;
+    --min-height: clamp(220px, 64vw, 300px);
+  }
+
   body .elementor .elementor-widget-manufaktursolutions_core_banner,
   body .elementor .elementor-widget-manufaktursolutions_core_banner .elementor-widget-container,
   body .elementor .elementor-widget-manufaktursolutions_core_banner .qodef-banner,
