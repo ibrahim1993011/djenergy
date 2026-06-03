@@ -1,5 +1,6 @@
 User-agent: *
 # AI/GEO summary: https://djenergy.solar/llms.txt
+# Static deployment refreshed: 2026-06-03 Asia/Shanghai
 Disallow: /wp-content/uploads/wc-logs/
 Disallow: /wp-content/uploads/woocommerce_transient_files/
 Disallow: /wp-content/uploads/woocommerce_uploads/
